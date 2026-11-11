@@ -1,9 +1,83 @@
 <mxfile host="app.diagrams.net">
-  <diagram name="Página-1" id="hZZdeweLBjf6YzzFZzKM">
-    <mxGraphModel dx="843" dy="486" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <diagram id="ZhPDw5an-2Poky5z8RtD" name="Página-1">
+    <mxGraphModel dx="1106" dy="631" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="1030" width="1319" x="156" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=30;" value="SISTEMA VECINDARIO" vertex="1">
+          <mxGeometry height="30" width="420" x="110" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-4" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;labelPerimeter=1;" value="Usuario" vertex="1">
+          <mxGeometry height="60" width="30" x="60" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-8" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;labelPerimeter=1;" value="Negocio Local" vertex="1">
+          <mxGeometry height="60" width="30" x="60" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-9" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;labelPerimeter=1;" value="Moderador" vertex="1">
+          <mxGeometry height="60" width="30" x="1540" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-10" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="Almacenamiento externo de imágenes" vertex="1">
+          <mxGeometry height="100" width="115" x="1505" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-16" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;" value="CLI&lt;br&gt;Cliente móvil/web" vertex="1">
+          <mxGeometry height="120" width="220" x="410" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-17" parent="j2sp5MnRYfw1ipF6x_JL-16" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-18" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;" value="PUB&lt;br&gt;Servicio de publicaciones" vertex="1">
+          <mxGeometry height="120" width="210" x="710" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-19" parent="j2sp5MnRYfw1ipF6x_JL-18" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-20" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;" value="SEG&lt;br&gt;Servicio de seguidores" vertex="1">
+          <mxGeometry height="120" width="210" x="410" y="415" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-21" parent="j2sp5MnRYfw1ipF6x_JL-20" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-22" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;" value="MUR&lt;br&gt;Servicio de muro" vertex="1">
+          <mxGeometry height="120" width="210" x="710" y="415" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-23" parent="j2sp5MnRYfw1ipF6x_JL-22" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-24" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;" value="MSG&lt;br&gt;Servicio de mensajería directa" vertex="1">
+          <mxGeometry height="120" width="210" x="410" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-25" parent="j2sp5MnRYfw1ipF6x_JL-24" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-26" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;" value="MOD&lt;br&gt;Servicio de moderación" vertex="1">
+          <mxGeometry height="120" width="210" x="670" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-27" parent="j2sp5MnRYfw1ipF6x_JL-26" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-28" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;" value="NOT&lt;br&gt;Servicio de notificaciones" vertex="1">
+          <mxGeometry height="120" width="210" x="910" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-29" parent="j2sp5MnRYfw1ipF6x_JL-28" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
