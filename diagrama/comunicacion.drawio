@@ -159,9 +159,7 @@
           <mxGeometry height="30" width="60" x="40" y="930" as="geometry" />
         </mxCell>
 
-        <!-- ======================================================== -->
-        <!-- APORTE DE CÉSAR (S1, S2, S2b, A1, A2, S3, A3 + NOTAS)    -->
-        <!-- ======================================================== -->
+       
 
         <!-- S1: CLI -> PUB -->
         <mxCell id="cesar-e-s1" value="S1" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-16" target="j2sp5MnRYfw1ipF6x_JL-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1c71d8;strokeWidth=2;fontColor=#1c71d8;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.6443;exitDx=0;exitDy=0;entryX=0.6667;entryY=0;entryDx=0;entryDy=0;">
