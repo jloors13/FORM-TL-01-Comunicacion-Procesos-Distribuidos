@@ -107,8 +107,65 @@ Esta solución también ayuda a responder al requisito R4, ya que permite distri
 
 \section{Protocolos y middleware}
 
-% Registrar los protocolos y middleware seleccionados,
-% junto con su justificación técnica.
+En Vecindario se utilizan diferentes protocolos y herramientas
+para que los servicios puedan intercambiar información. La
+elección depende del tipo de operación y de la rapidez con la
+que se necesita procesar cada solicitud.
+
+\subsection{Protocolos seleccionados}
+
+\begin{itemize}
+
+    \item \textbf{HTTPS:} se utiliza para las solicitudes
+    realizadas desde la aplicación móvil o web hacia los
+    servicios de la plataforma. Permite intercambiar
+    información de manera segura.
+
+    \item \textbf{TCP:} proporciona una conexión confiable
+    para el intercambio de datos. Se utiliza como base de
+    transporte para la comunicación de mensajería.
+
+    \item \textbf{WSS:} permite mantener conexiones
+    bidireccionales y persistentes entre los clientes y el
+    servicio de mensajería, facilitando la entrega de
+    mensajes en tiempo real.
+
+    \item \textbf{HTTP/2:} es utilizado por gRPC para
+    transportar las solicitudes y respuestas entre los
+    servicios de muro y seguidores.
+
+\end{itemize}
+
+\subsection{Middleware y herramientas seleccionadas}
+
+\begin{itemize}
+
+    \item \textbf{gRPC:} facilita la comunicación mediante
+    llamadas a procedimientos remotos entre los servicios.
+    Se utiliza principalmente para consultar la información
+    de seguidores desde el servicio de muro.
+
+    \item \textbf{Apache Kafka:} funciona como intermediario
+    de mensajes y permite distribuir eventos entre los
+    servicios de publicaciones, muro y notificaciones sin
+    que el servicio emisor tenga que esperar a todos los
+    consumidores.
+
+    \item \textbf{PostgreSQL:} se propone como sistema de
+    almacenamiento persistente para conservar los mensajes
+    y sus números de secuencia.
+
+    \item \textbf{Redis:} se utiliza para mantener información
+    temporal sobre la presencia de los usuarios, utilizando
+    tiempos de expiración (TTL).
+
+\end{itemize}
+
+La combinación de estas tecnologías permite que cada
+componente utilice el mecanismo más adecuado para su
+función. De esta manera, las operaciones que necesitan
+respuestas inmediatas se mantienen separadas de aquellas
+que pueden procesarse en segundo plano.
 
 \section{Requisitos y situaciones de fallo}
 
