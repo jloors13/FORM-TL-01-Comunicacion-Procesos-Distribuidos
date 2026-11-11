@@ -1,0 +1,81 @@
+% ------------------------------------------------------------------
+% Sección de Washington Apunte Pazmiño
+% Bloque: publicación con imagen, distribución al muro, seguidores
+% y notificaciones (requisitos R3 y R4; situación de fallo F2).
+% Integración en notas.tex: \input{secciones/publicacion-muro}
+% ------------------------------------------------------------------
+
+\subsection{Publicación y distribución al muro}
+
+\paragraph{Recorrido de un aviso.}
+El usuario o el negocio local crea el aviso desde el cliente (CLI). La primera llamada
+(S1) envía a PUB el \texttt{id\_usuario}, el texto, la categoría, la ubicación y el tipo
+de aviso (normal o alerta); PUB lo registra y responde con el \texttt{id\_aviso}. Si el
+aviso lleva imagen, el cliente la sube directamente al servicio externo de almacenamiento
+(S2), que devuelve la URL o el identificador del archivo, y después registra esa
+referencia en PUB (S2b). Así el archivo no pasa por los servicios internos.
+
+Cuando el aviso está completo, PUB publica el evento \texttt{AvisoPublicado} en Kafka (A1)
+y no espera nada más: el usuario ya recibió su confirmación. MUR consume el evento (A2),
+consulta a SEG los seguidores del autor mediante gRPC (S3) y agrega el aviso al muro de
+cada seguidor. En paralelo, NOT consume el evento \texttt{NuevaPublicación} o
+\texttt{AlertaSeguridad} (A3) y envía la notificación push a los seguidores (A5). Cuando un
+seguidor abre la aplicación, obtiene de MUR su muro ya armado (S10).
+
+\begin{center}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{ID} & \textbf{Origen $\rightarrow$ destino} & \textbf{Tipo} & \textbf{Sincronía} & \textbf{Protocolo y middleware} \\
+\hline
+S1  & CLI $\rightarrow$ PUB             & Petición-respuesta & Síncrona  & HTTPS/TCP, REST API \\
+S2  & CLI $\rightarrow$ almac. externo  & Petición-respuesta & Síncrona  & HTTPS/TCP, API externa \\
+S2b & CLI $\rightarrow$ PUB             & Petición-respuesta & Síncrona  & HTTPS/TCP, REST API \\
+A1  & PUB $\rightarrow$ Kafka           & Mensajería         & Asíncrona & TCP, Kafka \\
+A2  & Kafka $\rightarrow$ MUR           & Mensajería         & Asíncrona & TCP, Kafka \\
+S3  & MUR $\rightarrow$ SEG             & RPC                & Síncrona  & HTTP/2, gRPC \\
+A3  & Kafka $\rightarrow$ NOT           & Mensajería         & Asíncrona & TCP, Kafka \\
+A5  & NOT $\rightarrow$ CLI             & Mensajería push    & Asíncrona & HTTPS/TCP, FCM \\
+S10 & CLI $\rightarrow$ MUR             & Petición-respuesta & Síncrona  & HTTPS/TCP, REST API \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{Mecanismos y justificación.}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{REST sobre HTTPS, síncrono (S1, S2, S2b).} Crear el aviso, subir la imagen
+  y vincularla son acciones en las que el usuario necesita una respuesta inmediata
+  (\texttt{id\_aviso} o URL) para continuar. HTTPS funciona de forma nativa en Android y en
+  el navegador y protege los datos en tránsito.
+  \item \textbf{Kafka, asíncrono (A1, A2, A3).} La distribución al muro y las
+  notificaciones pueden completarse después de responder al usuario. Kafka desacopla a PUB
+  de MUR y de NOT: PUB publica el evento y continúa, y el evento queda guardado aunque un
+  consumidor esté caído.
+  \item \textbf{gRPC sobre HTTP/2, síncrono (S3).} MUR necesita cada página de seguidores
+  para seguir distribuyendo. gRPC trabaja con mensajes binarios compactos y un contrato
+  \texttt{.proto} entre servicios internos, por lo que tiene menos latencia que REST con
+  JSON.
+\end{itemize}
+
+\paragraph{R3: tiempos distintos para avisos normales y alertas.}
+Un aviso normal puede tardar hasta 5~s en aparecer en el muro de los seguidores, así que se
+acepta consistencia eventual. Una alerta de seguridad debe aparecer en menos de 1~s. Para
+que una alerta no quede en cola detrás de los avisos normales, PUB la publica en un tópico
+propio (\texttt{alertas.seguridad}) con consumidores dedicados en MUR y en NOT. La alerta
+tiene prioridad y capacidad de procesamiento separada del resto.
+
+\paragraph{R4: un negocio con 30.000 seguidores.}
+PUB no espera a que el aviso llegue a los 30.000 seguidores, porque la distribución es
+asíncrona (A1). MUR pide los seguidores a SEG por páginas (S3) y reparte el trabajo en
+lotes entre varios consumidores en paralelo. Además, se limita la carga que puede generar
+un solo autor, para que una publicación masiva no ocupe toda la capacidad y el servicio
+siga respondiendo al resto de usuarios.
+
+\paragraph{F2: el servicio de muro se cae mientras un negocio publica.}
+La distribución no se pierde. MUR confirma un evento en Kafka (\emph{commit} del
+\emph{offset}) solo después de procesarlo; si se cae a mitad del trabajo, los eventos no
+confirmados siguen en Kafka y, al recuperarse, MUR los vuelve a leer desde el último punto
+confirmado. Como un evento puede procesarse dos veces, el consumidor es idempotente:
+agregar el mismo aviso al mismo muro no crea un duplicado, por ejemplo gracias a una clave
+única (\texttt{id\_usuario}, \texttt{id\_aviso}).

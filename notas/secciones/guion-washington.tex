@@ -1,0 +1,29 @@
+% ------------------------------------------------------------------
+% Guion de exposición de Washington Apunte Pazmiño
+% Tramo 0:40--1:50 (unos 70 segundos). Hablar señalando el diagrama,
+% sin leer párrafos completos.
+% Integración en notas.tex: \input{secciones/guion-washington}
+% ------------------------------------------------------------------
+
+\subsection*{Guion de exposición: Washington (0:40--1:50)}
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Publicar con imagen (S1, S2, S2b), unos 15~s.} El cliente crea el aviso en
+  PUB por REST y recibe su identificador. La imagen va directo al almacenamiento externo,
+  que devuelve la URL, y S2b la liga al aviso. Son llamadas síncronas porque el usuario
+  necesita la confirmación.
+  \item \textbf{Kafka (A1), unos 10~s.} Desde aquí todo es asíncrono: PUB publica
+  \texttt{AvisoPublicado} en Kafka y no espera, así que publicar no se vuelve lento aunque
+  el autor tenga 30.000 seguidores.
+  \item \textbf{Muro y gRPC (A2, S3), unos 15~s.} MUR consume el evento y pide a SEG los
+  seguidores por páginas con gRPC, una llamada directa y rápida entre servicios. Con cada
+  lote actualiza los muros, con varios consumidores en paralelo.
+  \item \textbf{Alertas, R3, unos 10~s.} Las alertas de seguridad van por un tópico propio
+  con consumidores dedicados: llegan en menos de un segundo, mientras que un aviso normal
+  puede tardar hasta cinco.
+  \item \textbf{Notificaciones (A3), unos 5~s.} NOT escucha el mismo evento y notifica a
+  los seguidores.
+  \item \textbf{Fallo F2, unos 15~s.} Si MUR se cae a mitad de la distribución, no se
+  pierde nada: el evento sigue en Kafka sin confirmar y MUR lo retoma al volver. Como es
+  idempotente, nadie ve el aviso repetido. \emph{Paso la palabra a César.}
+\end{enumerate}
