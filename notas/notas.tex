@@ -67,7 +67,43 @@ La arquitectura también contempla componentes de infraestructura para gestionar
 
 \section{Mecanismos de comunicación}
 
-% Documentar sockets, RPC y mensajería.
+En Vecindario no todos los servicios necesitan comunicarse de la misma manera. Por ejemplo, enviar un mensaje directo requiere una respuesta rápida, mientras que distribuir una publicación entre miles de seguidores puede realizarse en segundo plano. Por esta razón, se han seleccionado distintos mecanismos de comunicación según las necesidades de cada operación.
+
+\subsection{Sockets TCP para mensajería directa}
+
+Para los mensajes directos se propone utilizar conexiones persistentes mediante WebSocket seguro (WSS), que funciona sobre TCP. Esto permite mantener una conexión abierta entre el cliente y el servicio de mensajería (MSG), evitando tener que iniciar una nueva conexión cada vez que se envía un mensaje.
+
+De esta manera, los usuarios pueden intercambiar mensajes sin tener que esperar a que se realicen nuevas solicitudes constantemente. También permite actualizar el indicador de conexión para mostrar quién está en línea.
+
+Para evitar que los mensajes aparezcan desordenados, MSG asignará un número de secuencia a cada mensaje dentro de su conversación. Además, los mensajes se guardarán antes de confirmar su recepción. Se utilizarán identificadores únicos para reconocer los mensajes y evitar que se procesen dos veces cuando sea necesario realizar un reintento.
+
+Esta elección busca cumplir el requisito R2, que establece que los mensajes deben llegar en menos de 500 milisegundos cuando el destinatario está conectado y conservar el orden en que fueron enviados.
+
+\subsection{RPC mediante gRPC}
+
+Para la comunicación entre el servicio de muro (MUR) y el servicio de seguidores (SEG) se propone utilizar gRPC.
+
+Por ejemplo, cuando una publicación debe aparecer en el muro de los seguidores, MUR necesita consultar a SEG para conocer qué usuarios siguen a la persona o negocio que realizó la publicación. Para obtener esa información, MUR realiza una llamada RPC y espera la respuesta de SEG.
+
+gRPC utiliza HTTP/2 para transportar los datos y Protocol Buffers para definir y serializar los mensajes que intercambian los servicios.
+
+En este caso, la comunicación es síncrona porque MUR necesita recibir la respuesta de SEG antes de continuar con la operación que depende de esa información.
+
+Se eligió gRPC porque permite establecer una comunicación directa y organizada entre los servicios, facilitando el intercambio de datos sin necesidad de utilizar mensajes de texto más extensos.
+
+\subsection{Mensajería asíncrona mediante Kafka}
+
+Para distribuir las publicaciones y comunicar eventos entre los servicios PUB, MUR y NOT se propone utilizar Apache Kafka.
+
+La idea es que, cuando PUB registra una nueva publicación, envíe un evento a Kafka. A partir de ese momento, los servicios que necesitan procesar esa información pueden recibirla y trabajar por separado, sin que PUB tenga que esperar a que todos terminen.
+
+Esto resulta útil porque una publicación puede llegar a miles de seguidores y no sería conveniente que el usuario tuviera que esperar durante todo ese proceso.
+
+Kafka permite conservar los eventos para que puedan procesarse posteriormente si alguno de los servicios presenta problemas. Cuando el servicio vuelve a funcionar, puede continuar procesando los eventos pendientes. También se deben utilizar mecanismos de idempotencia para evitar que una misma publicación se procese varias veces.
+
+Para cumplir el requisito R3, se plantea dar prioridad a las alertas de seguridad, de modo que su distribución no tenga que esperar a que se terminen de procesar las publicaciones normales.
+
+Esta solución también ayuda a responder al requisito R4, ya que permite distribuir las publicaciones de negocios con muchos seguidores de forma progresiva, sin concentrar todo el trabajo en un solo servicio.
 
 \section{Protocolos y middleware}
 
