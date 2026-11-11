@@ -4,8 +4,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        
-       
+        <!-- BASE DE LOOR (Contenedores y Actores) -->
         <mxCell id="zv-97ObwJ9qFjEp7vpU8-44" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" value="" vertex="1">
           <mxGeometry height="120" width="230" x="40" y="960" as="geometry" />
         </mxCell>
@@ -160,90 +159,104 @@
           <mxGeometry height="30" width="60" x="40" y="930" as="geometry" />
         </mxCell>
 
+        <!-- ======================================================== -->
+        <!-- APORTE DE CÉSAR (S1, S2, S2b, A1, A2, S3, A3 + NOTAS)    -->
+        <!-- ======================================================== -->
 
-
-        <!-- Flecha S1: CLI -> PUB -->
-        <mxCell id="cesar-e-s1" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-16" target="j2sp5MnRYfw1ipF6x_JL-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
-          <mxGeometry relative="1" as="geometry" />
+        <!-- S1: CLI -> PUB -->
+        <mxCell id="cesar-e-s1" value="S1" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-16" target="j2sp5MnRYfw1ipF6x_JL-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1c71d8;strokeWidth=2;fontColor=#1c71d8;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.6443;exitDx=0;exitDy=0;entryX=0.6667;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry x="-0.8" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="770" y="560" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="cesar-l-s1" value="S1: Crear aviso: id_usuario, texto, categoría... REST API - HTTPS/TCP síncrona." style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];backgroundColor=#ffffff;" vertex="1" connectable="0" parent="cesar-e-s1">
-          <mxGeometry x="-0.2" y="1" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        <mxCell id="cesar-t-s1" value="&lt;b&gt;S1 · CLI → PUB&lt;/b&gt;&lt;br&gt;Crear aviso: id_usuario, texto, categoría, ubicación y tipo (normal/alerta).&lt;br&gt;REST API · HTTPS/TCP · síncrona.&lt;br&gt;PUB responde con id_aviso y confirmación." style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=10;fontColor=#1c71d8;strokeColor=#1c71d8;fillColor=#ffffff;rounded=1;spacingLeft=4;" vertex="1" parent="1">
+          <mxGeometry x="850" y="610" width="215" height="100" as="geometry" />
         </mxCell>
 
-        <!-- Flecha S2: CLI -> Almacenamiento Externo -->
-        <mxCell id="cesar-e-s2" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-16" target="j2sp5MnRYfw1ipF6x_JL-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+        <!-- S2: CLI -> Almacenamiento externo -->
+        <mxCell id="cesar-e-s2" value="S2 · CLI → almacenamiento externo · Cargar imagen&lt;br&gt;HTTPS/TCP · síncrona · Respuesta: URL/ID de imagen" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-16" target="j2sp5MnRYfw1ipF6x_JL-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0e7490;strokeWidth=2;fontColor=#0e7490;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="610" y="170" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="cesar-l-s2" value="S2: Cargar imagen HTTPS/TCP síncrona. Respuesta: URL/ID de imagen." style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];backgroundColor=#ffffff;" vertex="1" connectable="0" parent="cesar-e-s2">
-          <mxGeometry x="0.1" y="0" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+
+        <!-- S2b: CLI -> PUB (registrar aviso con URL/ID) -->
+        <mxCell id="cesar-e-s2b" value="S2b" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-16" target="j2sp5MnRYfw1ipF6x_JL-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2e7d32;strokeWidth=2;fontColor=#2e7d32;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.4664;exitDx=0;exitDy=0;entryX=0.8095;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry x="-0.8" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cesar-t-s2b" value="&lt;b&gt;S2b · CLI → PUB&lt;/b&gt;&lt;br&gt;Registrar aviso con URL/ID de imagen.&lt;br&gt;REST API · HTTPS/TCP · síncrona." style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=10;fontColor=#2e7d32;strokeColor=#2e7d32;fillColor=#ffffff;rounded=1;spacingLeft=4;" vertex="1" parent="1">
+          <mxGeometry x="850" y="525" width="215" height="70" as="geometry" />
         </mxCell>
 
-        <!-- Flecha S2b: CLI -> PUB (Registrar aviso con URL) -->
-        <mxCell id="cesar-e-s2b" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-16" target="j2sp5MnRYfw1ipF6x_JL-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;">
-          <mxGeometry relative="1" as="geometry" />
+        <!-- A1: PUB -> Kafka (asíncrona) -->
+        <mxCell id="cesar-e-a1" value="A1" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-18" target="zv-97ObwJ9qFjEp7vpU8-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#c2410c;strokeWidth=2;fontColor=#c2410c;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.9524;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.4933;entryDx=0;entryDy=0;">
+          <mxGeometry x="0.8" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="830" y="432" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="cesar-l-s2b" value="S2b: Registrar aviso con URL/ID - REST API HTTPS/TCP síncrona." style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];backgroundColor=#ffffff;" vertex="1" connectable="0" parent="cesar-e-s2b">
-          <mxGeometry x="-0.4" y="2" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
-        </mxCell>
-
-        <!-- Flecha A1: PUB -> Kafka (Asíncrona) -->
-        <mxCell id="cesar-e-a1" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-18" target="zv-97ObwJ9qFjEp7vpU8-1" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cesar-l-a1" value="A1: Evento AvisoPublicado (id_aviso, autor...) Kafka/TCP asíncrona." style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];backgroundColor=#ffffff;" vertex="1" connectable="0" parent="cesar-e-a1">
-          <mxGeometry x="0.2" y="0" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        <mxCell id="cesar-t-a1" value="&lt;b&gt;A1 · PUB → Kafka&lt;/b&gt;&lt;br&gt;Evento AvisoPublicado (id_aviso, autor, tipo, fecha, URL_imagen).&lt;br&gt;Kafka · TCP · asíncrona." style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=10;fontColor=#c2410c;strokeColor=#c2410c;fillColor=#ffffff;rounded=1;spacingLeft=4;" vertex="1" parent="1">
+          <mxGeometry x="850" y="725" width="215" height="80" as="geometry" />
         </mxCell>
 
-        <!-- Flecha A2: Kafka -> MUR (Asíncrona) -->
-        <mxCell id="cesar-e-a2" edge="1" parent="1" source="zv-97ObwJ9qFjEp7vpU8-1" target="zv-97ObwJ9qFjEp7vpU8-34" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
-          <mxGeometry relative="1" as="geometry" />
+        <!-- A2: Kafka -> MUR (asíncrona) -->
+        <mxCell id="cesar-e-a2" value="A2" edge="1" parent="1" source="zv-97ObwJ9qFjEp7vpU8-1" target="zv-97ObwJ9qFjEp7vpU8-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#7e22ce;strokeWidth=2;fontColor=#7e22ce;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.3333;exitDx=0;exitDy=0;entryX=0.881;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry x="-0.7" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1590" y="420" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="cesar-l-a2" value="A2: Consumir AvisoPublicado - Kafka/TCP asíncrona." style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];backgroundColor=#ffffff;" vertex="1" connectable="0" parent="cesar-e-a2">
-          <mxGeometry x="-0.2" y="0" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
-        </mxCell>
-
-        <!-- Flecha S3: MUR -> SEG -->
-        <mxCell id="cesar-e-s3" edge="1" parent="1" source="zv-97ObwJ9qFjEp7vpU8-34" target="j2sp5MnRYfw1ipF6x_JL-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cesar-l-s3" value="S3: Consultar seguidores del autor por lotes - RPC gRPC HTTP/2 síncrona." style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];backgroundColor=#ffffff;" vertex="1" connectable="0" parent="cesar-e-s3">
-          <mxGeometry x="0" y="0" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        <mxCell id="cesar-t-a2" value="&lt;b&gt;A2 · Kafka → MUR&lt;/b&gt;&lt;br&gt;Consumir AvisoPublicado.&lt;br&gt;Kafka · TCP · asíncrona." style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=10;fontColor=#7e22ce;strokeColor=#7e22ce;fillColor=#ffffff;rounded=1;spacingLeft=4;" vertex="1" parent="1">
+          <mxGeometry x="1375" y="335" width="155" height="65" as="geometry" />
         </mxCell>
 
-        <!-- Flecha A3: Kafka -> NOT (Asíncrona) -->
-        <mxCell id="cesar-e-a3" edge="1" parent="1" source="zv-97ObwJ9qFjEp7vpU8-1" target="j2sp5MnRYfw1ipF6x_JL-28" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cesar-l-a3" value="A3: Evento Nueva Publicación / Alerta Seguridad - Kafka/TCP asíncrona." style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];backgroundColor=#ffffff;" vertex="1" connectable="0" parent="cesar-e-a3">
-          <mxGeometry x="-0.3" y="0" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
-        </mxCell>
-
-        <!-- POST-ITS (NOTAS AMARILLAS DE CÉSAR) -->
-        <mxCell id="cesar-n-1" value="Publicación normal: objetivo ≤5 s; consistencia eventual aceptable" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;" vertex="1" parent="1">
-          <mxGeometry x="1450" y="850" width="160" height="70" as="geometry" />
+        <!-- S3: MUR -> SEG (por debajo de NOT para no cruzarlo) -->
+        <mxCell id="cesar-e-s3" value="S3 · MUR → SEG · Consultar seguidores del autor por páginas/lotes&lt;br&gt;RPC gRPC · HTTP/2 · síncrona · SEG devuelve IDs paginados" edge="1" parent="1" source="zv-97ObwJ9qFjEp7vpU8-34" target="j2sp5MnRYfw1ipF6x_JL-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#92400e;strokeWidth=2;fontColor=#92400e;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1510" y="1120" />
+              <mxPoint x="975" y="1120" />
+            </Array>
+          </mxGeometry>
         </mxCell>
 
-        <mxCell id="cesar-n-2" value="Alerta de seguridad: ruta prioritaria; objetivo &lt;1 s" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;" vertex="1" parent="1">
-          <mxGeometry x="1100" y="850" width="140" height="60" as="geometry" />
+        <!-- A3: Kafka -> NOT (asíncrona) -->
+        <mxCell id="cesar-e-a3" value="A3 · Kafka → NOT · Evento NuevaPublicación / AlertaSeguridad&lt;br&gt;Kafka · TCP · asíncrona" edge="1" parent="1" source="zv-97ObwJ9qFjEp7vpU8-1" target="j2sp5MnRYfw1ipF6x_JL-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#b91c1c;strokeWidth=2;fontColor=#b91c1c;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.8;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry x="0.62" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1560" y="455" />
+              <mxPoint x="1560" y="940" />
+              <mxPoint x="1220" y="940" />
+            </Array>
+          </mxGeometry>
         </mxCell>
 
-        <mxCell id="cesar-n-3" value="Fan-out por lotes/páginas; consumidores paralelos; limitar carga por autor" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;" vertex="1" parent="1">
-          <mxGeometry x="1000" y="1010" width="160" height="70" as="geometry" />
+        <!-- NOTAS (post-its amarillos) -->
+        <mxCell id="cesar-n-1" value="Publicación normal: objetivo ≤5 s; consistencia eventual aceptable" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1525" y="1095" width="125" height="70" as="geometry" />
         </mxCell>
-
-        <mxCell id="cesar-n-4" value="Si MUR cae, el evento no confirmado se reintenta al recuperarse; consumidor idempotente para evitar duplicados" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;" vertex="1" parent="1">
-          <mxGeometry x="1270" y="320" width="190" height="80" as="geometry" />
+        <mxCell id="cesar-n-2" value="Alerta de seguridad: ruta prioritaria; objetivo &lt;1 s" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="880" width="230" height="40" as="geometry" />
         </mxCell>
-
-        <mxCell id="cesar-n-5" value="No bloquear la publicación esperando a los 30.000 destinatarios; distribuir en lotes" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;" vertex="1" parent="1">
-          <mxGeometry x="70" y="580" width="160" height="70" as="geometry" />
+        <mxCell id="cesar-n-3" value="Fan-out por lotes/páginas; consumidores paralelos; limitar carga por autor" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="880" y="895" width="215" height="55" as="geometry" />
         </mxCell>
-        <!-- ========================================= -->
-
+        <mxCell id="cesar-n-4" value="Si MUR cae, el evento no confirmado se reintenta al recuperarse; consumidor idempotente para evitar duplicados" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="310" width="330" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cesar-n-5" value="No bloquear la publicación esperando a los 30.000 destinatarios; distribuir en lotes" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="560" width="240" height="60" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
