@@ -1,5 +1,5 @@
-
-\documentclass[12pt,a4paper]{article}
+\documentclass{article}
+\usepackage{enumitem}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -40,6 +40,102 @@ mediante mensajes directos.
 
 % Documentar sockets, RPC y mensajería.
 
+
+
+
+
+
+\section{Operaciones principales del diagrama}
+
+\subsection{Mensajería directa, presencia y moderación}
+
+\paragraph{Recorrido de un mensaje directo.}
+Al abrir la aplicación, el cliente (CLI) establece un canal WebSocket seguro (WSS sobre TCP)
+con el balanceador, que lo asigna a una de las instancias de MSG (S4). El canal queda
+abierto, por lo que los mensajes se envían y se reciben en ambos sentidos sin crear una
+conexión nueva cada vez. Cuando un usuario envía un mensaje, MSG le asigna un
+\texttt{sequence\_no} creciente dentro de su conversación y lo guarda en PostgreSQL con
+\texttt{conversation\_id}, \texttt{message\_id}, remitente, destinatario, contenido y
+\emph{timestamp} (S6). Solo después de que PostgreSQL confirma la escritura, MSG envía el
+ACK al remitente y entrega el mensaje al destinatario si está conectado.
+
+\paragraph{Presencia en línea.}
+Mientras el canal está abierto, el cliente envía periódicamente un \emph{heartbeat} por el
+mismo canal WSS (S5). Con cada uno, MSG renueva en Redis la clave de presencia del usuario,
+que tiene un tiempo de expiración (TTL) (S7). Si los \emph{heartbeats} dejan de llegar, la
+clave expira y el usuario se muestra como desconectado, sin necesidad de un aviso explícito.
+
+\paragraph{Denuncia y ocultamiento.}
+Cuando un usuario denuncia un aviso, el cliente envía a MOD el \texttt{id\_aviso}, el
+\texttt{id\_usuario} y el motivo (S8), y MOD confirma la recepción. MOD cuenta únicamente las
+denuncias válidas de usuarios distintos. Al llegar a tres, solicita a PUB ocultar el aviso
+(S9); PUB cambia su estado a oculto y publica en Kafka el evento \texttt{PublicaciónOcultada}
+(A4), que MUR consume para retirar o invalidar el aviso en los muros.
+
+\begin{center}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{0.8cm}|p{3.6cm}|p{2.9cm}|p{2.9cm}|p{3.2cm}|}
+\hline
+\textbf{ID} & \textbf{Origen $\rightarrow$ destino} & \textbf{Tipo} & \textbf{Sincronía} & \textbf{Protocolo y middleware} \\
+\hline
+S4 & CLI $\leftrightarrow$ balanceador $\leftrightarrow$ MSG & Socket persistente & Bidireccional & WSS/TCP \\
+S5 & CLI $\leftrightarrow$ MSG & \emph{Heartbeat} & Bidireccional & WSS/TCP \\
+S6 & MSG $\leftrightarrow$ PostgreSQL & Escritura y confirmación & Síncrona (antes del ACK) & Protocolo PostgreSQL/TCP \\
+S7 & MSG $\leftrightarrow$ Redis & Presencia con TTL & Síncrona breve & RESP/TCP \\
+S8 & CLI $\rightarrow$ MOD & Petición-respuesta & Síncrona & HTTPS/TCP, REST API \\
+S9 & MOD $\rightarrow$ PUB & RPC & Síncrona & HTTP/2, gRPC \\
+A4 & PUB $\rightarrow$ Kafka $\rightarrow$ MUR & Mensajería & Asíncrona & TCP, Kafka \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{Mecanismos y justificación.}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{WSS sobre TCP, bidireccional y persistente (S4, S5).} Un canal abierto
+  permite entregar el mensaje apenas llega, sin el costo de abrir una conexión por cada
+  envío, y sirve también para el \emph{heartbeat} de presencia. TCP garantiza entrega
+  ordenada y confiable; WSS cifra el tráfico.
+  \item \textbf{PostgreSQL síncrono antes del ACK (S6).} Un mensaje no se confirma hasta
+  estar guardado, para no confirmar algo que luego pueda perderse.
+  \item \textbf{Redis con TTL (S7).} La presencia es un dato temporal que cambia
+  constantemente y no necesita sobrevivir a un reinicio, por lo que se guarda en memoria con
+  expiración.
+  \item \textbf{REST y gRPC en la moderación (S8, S9) y Kafka en la invalidación (A4).} La
+  denuncia necesita confirmación inmediata; la orden de ocultar es una llamada directa entre
+  servicios internos; y el retiro del aviso en los muros puede hacerse de forma asíncrona.
+\end{itemize}
+
+\paragraph{R2: mensajes en menos de 500~ms y en orden.}
+El canal WSS ya está abierto, por lo que la entrega a un destinatario conectado no depende
+de establecer conexiones nuevas. El \texttt{sequence\_no} creciente por conversación permite
+mostrar los mensajes en el orden en que fueron enviados, y el \texttt{message\_id} único
+permite descartar un mensaje repetido si hubo un reintento. Guardar antes del ACK evita
+confirmar un mensaje que todavía no está persistido.
+
+\paragraph{R5: tres denuncias y ocultamiento en menos de un minuto.}
+MOD cuenta tres denuncias válidas de usuarios distintos y solicita a PUB ocultar el aviso
+(S9). PUB cambia el estado y publica \texttt{PublicaciónOcultada} (A4); MUR invalida el
+aviso en los muros de los seguidores. Como la secuencia es corta y solo la última parte es
+asíncrona, se espera cumplir el límite de un minuto.
+
+\paragraph{R6: disponibilidad de 99,5\,\% en la mensajería.}
+Se aspira a esa meta con varias instancias de MSG detrás del balanceador, \emph{health
+checks} que retiran las instancias que no responden y persistencia de los mensajes en
+PostgreSQL. El muro está desacoplado mediante Kafka, de modo que su degradación no bloquea
+la mensajería.
+
+\paragraph{F1: el destinatario está desconectado.}
+El mensaje ya se guardó en PostgreSQL antes del ACK, por lo que queda pendiente aunque el
+destinatario no esté en línea. Cuando vuelve a conectarse, el cliente pide los mensajes
+posteriores a su último ACK y MSG se los entrega.
+
+\paragraph{F3: MSG se reinicia con conversaciones abiertas.}
+Los clientes se reconectan al balanceador, que los asigna a una instancia disponible. Cada
+cliente recupera desde la última secuencia confirmada, sin depender de memoria volátil, y el
+\texttt{message\_id} permite descartar lo que ya se hubiera procesado.
+
+
 \section{Protocolos y middleware}
 
 % Registrar los protocolos y middleware seleccionados,
@@ -75,5 +171,99 @@ mediante mensajes directos.
 
 % Registrar las observaciones del docente y los cambios
 % realizados al diseño después de la presentación.
+
+\end{document}
+\begin{document}
+\section{Operaciones principales del diagrama}
+
+\subsection{Mensajería directa, presencia y moderación}
+
+\paragraph{Recorrido de un mensaje directo.}
+Al abrir la aplicación, el cliente (CLI) establece un canal WebSocket seguro (WSS sobre TCP)
+con el balanceador, que lo asigna a una de las instancias de MSG (S4). El canal queda
+abierto, por lo que los mensajes se envían y se reciben en ambos sentidos sin crear una
+conexión nueva cada vez. Cuando un usuario envía un mensaje, MSG le asigna un
+\texttt{sequence\_no} creciente dentro de su conversación y lo guarda en PostgreSQL con
+\texttt{conversation\_id}, \texttt{message\_id}, remitente, destinatario, contenido y
+\emph{timestamp} (S6). Solo después de que PostgreSQL confirma la escritura, MSG envía el
+ACK al remitente y entrega el mensaje al destinatario si está conectado.
+
+\paragraph{Presencia en línea.}
+Mientras el canal está abierto, el cliente envía periódicamente un \emph{heartbeat} por el
+mismo canal WSS (S5). Con cada uno, MSG renueva en Redis la clave de presencia del usuario,
+que tiene un tiempo de expiración (TTL) (S7). Si los \emph{heartbeats} dejan de llegar, la
+clave expira y el usuario se muestra como desconectado, sin necesidad de un aviso explícito.
+
+\paragraph{Denuncia y ocultamiento.}
+Cuando un usuario denuncia un aviso, el cliente envía a MOD el \texttt{id\_aviso}, el
+
+\texttt{id\_usuario} y el motivo (S8), y MOD confirma la recepción. MOD cuenta únicamente las
+denuncias válidas de usuarios distintos. Al llegar a tres, solicita a PUB ocultar el aviso
+(S9); PUB cambia su estado a oculto y publica en Kafka el evento \texttt{PublicaciónOcultada}
+(A4), que MUR consume para retirar o invalidar el aviso en los muros.
+
+\begin{center}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{0.8cm}|p{3.6cm}|p{2.9cm}|p{2.9cm}|p{3.2cm}|}
+\hline
+\textbf{ID} & \textbf{Origen $\rightarrow$ destino} & \textbf{Tipo} & \textbf{Sincronía} & \textbf{Protocolo y middleware} \\
+\hline
+S4 & CLI $\leftrightarrow$ balanceador $\leftrightarrow$ MSG & Socket persistente & Bidireccional & WSS/TCP \\
+S5 & CLI $\leftrightarrow$ MSG & \emph{Heartbeat} & Bidireccional & WSS/TCP \\
+S6 & MSG $\leftrightarrow$ PostgreSQL & Escritura y confirmación & Síncrona (antes del ACK) & Protocolo PostgreSQL/TCP \\
+S7 & MSG $\leftrightarrow$ Redis & Presencia con TTL & Síncrona breve & RESP/TCP \\
+S8 & CLI $\rightarrow$ MOD & Petición-respuesta & Síncrona & HTTPS/TCP, REST API \\
+S9 & MOD $\rightarrow$ PUB & RPC & Síncrona & HTTP/2, gRPC \\
+A4 & PUB $\rightarrow$ Kafka $\rightarrow$ MUR & Mensajería & Asíncrona & TCP, Kafka \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{Mecanismos y justificación.}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{WSS sobre TCP, bidireccional y persistente (S4, S5).} Un canal abierto
+  permite entregar el mensaje apenas llega, sin el costo de abrir una conexión por cada
+  envío, y sirve también para el \emph{heartbeat} de presencia. TCP garantiza entrega
+  ordenada y confiable; WSS cifra el tráfico.
+  \item \textbf{PostgreSQL síncrono antes del ACK (S6).} Un mensaje no se confirma hasta
+  estar guardado, para no confirmar algo que luego pueda perderse.
+  \item \textbf{Redis con TTL (S7).} La presencia es un dato temporal que cambia
+  constantemente y no necesita sobrevivir a un reinicio, por lo que se guarda en memoria con
+  expiración.
+  \item \textbf{REST y gRPC en la moderación (S8, S9) y Kafka en la invalidación (A4).} La
+  denuncia necesita confirmación inmediata; la orden de ocultar es una llamada directa entre
+  servicios internos; y el retiro del aviso en los muros puede hacerse de forma asíncrona.
+\end{itemize}
+
+\paragraph{R2: mensajes en menos de 500~ms y en orden.}
+El canal WSS ya está abierto, por lo que la entrega a un destinatario conectado no depende
+de establecer conexiones nuevas. El \texttt{sequence\_no} creciente por conversación permite
+mostrar los mensajes en el orden en que fueron enviados, y el \texttt{message\_id} único
+permite descartar un mensaje repetido si hubo un reintento. Guardar antes del ACK evita
+confirmar un mensaje que todavía no está persistido.
+
+\paragraph{R5: tres denuncias y ocultamiento en menos de un minuto.}
+MOD cuenta tres denuncias válidas de usuarios distintos y solicita a PUB ocultar el aviso
+(S9). PUB cambia el estado y publica \texttt{PublicaciónOcultada} (A4); MUR invalida el
+aviso en los muros de los seguidores. Como la secuencia es corta y solo la última parte es
+asíncrona, se espera cumplir el límite de un minuto.
+
+\paragraph{R6: disponibilidad de 99,5\,\% en la mensajería.}
+Se aspira a esa meta con varias instancias de MSG detrás del balanceador, \emph{health
+checks} que retiran las instancias que no responden y persistencia de los mensajes en
+PostgreSQL. El muro está desacoplado mediante Kafka, de modo que su degradación no bloquea
+la mensajería.
+
+\paragraph{F1: el destinatario está desconectado.}
+El mensaje ya se guardó en PostgreSQL antes del ACK, por lo que queda pendiente aunque el
+destinatario no esté en línea. Cuando vuelve a conectarse, el cliente pide los mensajes
+posteriores a su último ACK y MSG se los entrega.
+
+\paragraph{F3: MSG se reinicia con conversaciones abiertas.}
+Los clientes se reconectan al balanceador, que los asigna a una instancia disponible. Cada
+cliente recupera desde la última secuencia confirmada, sin depender de memoria volátil, y el
+\texttt{message\_id} permite descartar lo que ya se hubiera procesado.
+
 
 \end{document}
