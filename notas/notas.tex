@@ -7,6 +7,9 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{enumitem}
 \usepackage{hyperref}
+\usepackage{pdflscape}
+\usepackage{longtable}
+\usepackage{array}
 
 \title{FORM-TL-01\\
 Notas de presentación: Vecindario}
@@ -151,13 +154,21 @@ que se necesita procesar cada solicitud.
     que el servicio emisor tenga que esperar a todos los
     consumidores.
 
-    \item \textbf{PostgreSQL:} se propone como sistema de
-    almacenamiento persistente para conservar los mensajes
-    y sus números de secuencia\cite{postgresql}.
+  \item \textbf{PostgreSQL:} se propone como sistema
+de almacenamiento persistente para conservar los mensajes
+y sus números de secuencia. Además, su mecanismo
+Write-Ahead Logging (WAL) permite recuperar cambios
+registrados ante determinados fallos del sistema
+\cite{postgresql}.
 
     \item \textbf{Redis:} se utiliza para mantener información
     temporal sobre la presencia de los usuarios, utilizando
     tiempos de expiración (TTL)\cite{redis}.
+
+    \item \textbf{Firebase Cloud Messaging (FCM):} se propone
+para enviar notificaciones push a los dispositivos de los
+usuarios cuando se generan nuevos avisos o alertas
+\cite{fcm}.
 
 \end{itemize}
 
@@ -166,6 +177,173 @@ componente utilice el mecanismo más adecuado para su
 función. De esta manera, las operaciones que necesitan
 respuestas inmediatas se mantienen separadas de aquellas
 que pueden procesarse en segundo plano.
+
+
+\begin{landscape}
+
+\section{Tabla de interacciones}
+
+La siguiente tabla resume las comunicaciones representadas
+en el diagrama de Vecindario. Se identifican los servicios
+que participan, la información intercambiada, el mecanismo
+utilizado y la razón por la que se seleccionó cada forma
+de comunicación.
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.3}
+
+\begin{longtable}{
+|p{0.7cm}
+|p{2.1cm}
+|p{2.1cm}
+|p{3.5cm}
+|p{1.7cm}
+|p{1.7cm}
+|p{2.8cm}
+|p{5.0cm}|}
+
+\hline
+\textbf{ID} &
+\textbf{Emisor} &
+\textbf{Receptor} &
+\textbf{Mensaje u operación} &
+\textbf{Tipo} &
+\textbf{Sincronía} &
+\textbf{Protocolo / middleware} &
+\textbf{Justificación} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{ID} &
+\textbf{Emisor} &
+\textbf{Receptor} &
+\textbf{Mensaje u operación} &
+\textbf{Tipo} &
+\textbf{Sincronía} &
+\textbf{Protocolo / middleware} &
+\textbf{Justificación} \\
+\hline
+\endhead
+
+S1 & CLI & PUB &
+Crear aviso con texto, categoría, ubicación y tipo. &
+Petición-respuesta & Síncrona &
+REST API / HTTPS sobre TCP &
+El cliente necesita recibir el identificador del aviso y la confirmación de su creación. \\
+\hline
+
+S2 & CLI & Almacenamiento externo &
+Cargar archivo de imagen y recibir su URL o identificador. &
+Petición-respuesta & Síncrona &
+API REST / HTTPS sobre TCP &
+Se necesita obtener la referencia de la imagen antes de vincularla con la publicación. \\
+\hline
+
+S2b & CLI & PUB &
+Registrar el aviso utilizando la URL o identificador de la imagen. &
+Petición-respuesta & Síncrona &
+REST API / HTTPS sobre TCP &
+Permite asociar la imagen previamente almacenada con el aviso correspondiente. \\
+\hline
+
+S3 & MUR & SEG &
+Consultar los seguidores del autor mediante páginas o lotes. &
+RPC & Síncrona &
+gRPC / HTTP/2 &
+MUR necesita obtener los identificadores de los seguidores para distribuir las publicaciones. \\
+\hline
+
+S4 & CLI & MSG, mediante el balanceador &
+Establecer la conexión de mensajería y enviar o recibir mensajes. &
+Sockets & Síncrona &
+WebSocket seguro (WSS) / TCP &
+Permite establecer una conexión persistente y bidireccional para intercambiar mensajes entre el cliente y el servicio de mensajería. \\
+\hline
+
+S5 & CLI & MSG, mediante el balanceador &
+Enviar heartbeat y actualizar el estado de conexión. &
+Sockets & Asíncrona &
+WSS / TCP &
+Permite mantener actualizada la presencia de los usuarios mediante mensajes periódicos sin bloquear el intercambio de mensajes. \\
+\hline
+
+S6 & MSG & PostgreSQL &
+Guardar mensaje, conversación, identificador y número de secuencia. &
+Acceso a datos & Síncrona &
+Protocolo PostgreSQL / TCP &
+El mensaje debe quedar almacenado antes de confirmar su recepción para evitar pérdidas. \\
+\hline
+
+S7 & MSG & Redis &
+Actualizar o consultar la presencia de los usuarios mediante TTL. &
+Acceso a datos & Síncrona &
+RESP / TCP &
+Permite consultar rápidamente el estado temporal de conexión y detectar desconexiones mediante expiración. \\
+\hline
+
+S8 & CLI & MOD &
+Enviar denuncia con identificador del aviso, usuario y motivo. &
+Petición-respuesta & Síncrona &
+REST API / HTTPS sobre TCP &
+MOD necesita recibir la denuncia y confirmar su recepción para iniciar la revisión. \\
+\hline
+
+S9 & MOD & PUB &
+Solicitar el ocultamiento de una publicación al alcanzar tres denuncias válidas. &
+RPC & Síncrona &
+gRPC / HTTP/2 &
+PUB debe recibir la solicitud y cambiar el estado del aviso a oculto. \\
+\hline
+
+S10 & CLI & MUR &
+Consultar el muro mediante una solicitud de timeline paginado. &
+Petición-respuesta & Síncrona &
+REST API / HTTPS sobre TCP &
+Permite consultar las publicaciones del usuario, mostrando primero las alertas. \\
+\hline
+
+A1 & PUB & Kafka &
+Publicar el evento AvisoPublicado con los datos del aviso. &
+Mensajería pub/sub & Asíncrona &
+Kafka / TCP &
+PUB puede continuar su operación sin esperar a que todos los consumidores procesen el evento. \\
+\hline
+
+A2 & Kafka & MUR &
+Consumir el evento AvisoPublicado para distribuirlo en los muros. &
+Mensajería pub/sub & Asíncrona &
+Kafka / TCP &
+Permite procesar las publicaciones en segundo plano y distribuirlas por lotes. \\
+\hline
+
+A3 & Kafka & NOT &
+Consumir eventos NuevaPublicación o AlertaSeguridad. &
+Mensajería pub/sub & Asíncrona &
+Kafka / TCP &
+NOT recibe los eventos sin bloquear al servicio que los genera y puede gestionar las notificaciones. \\
+\hline
+
+A4 & PUB $\rightarrow$ Kafka $\rightarrow$ MUR &
+Kafka y MUR &
+Publicar PublicaciónOcultada y consumir el evento para invalidar el aviso en los muros. &
+Mensajería pub/sub & Asíncrona &
+Kafka / TCP &
+Permite comunicar el ocultamiento sin esperar a que todos los muros actualicen su contenido. \\
+\hline
+
+A5 & NOT & CLI &
+Enviar notificación push de nuevo aviso o alerta de seguridad. &
+Mensajería push & Asíncrona &
+Firebase Cloud Messaging (FCM) / HTTPS sobre TCP \cite{fcm} &
+Permite avisar al usuario sin que tenga que consultar constantemente la plataforma. \\
+\hline
+
+\end{longtable}
+\end{landscape}
+
+\normalsize
+
 
 \section{Requisitos y situaciones de fallo}
 
@@ -210,36 +388,18 @@ Estas medidas buscan que la plataforma pueda continuar funcionando ante interrup
 
 \section{Preguntas críticas recibidas y respuestas}
 
-Esta sección se completará durante la revisión del trabajo
-en clase, cuando el equipo reciba preguntas críticas de
-los compañeros o del docente.
-
-Se registrarán las preguntas recibidas, quién las formuló
-y las respuestas proporcionadas por los integrantes.
-
-\begin{enumerate}[leftmargin=*]
-
-    \item \textbf{Pregunta recibida:}
-
-    \textbf{Equipo o persona que la formuló:}
-
-    \textbf{Respuesta del equipo:}
-
-\end{enumerate}
+A la fecha de elaboración de este documento, el equipo
+todavía no ha recibido preguntas críticas durante la
+revisión en clase. Este apartado se completará cuando
+se realicen dichas intervenciones.
 
 
 \section{Preguntas críticas formuladas a otros equipos}
 
-Este apartado se completará durante la revisión de los
-trabajos de los demás grupos.
-
-\begin{enumerate}[leftmargin=*]
-
-    \item \textbf{Equipo al que se dirigió:}
-
-    \textbf{Pregunta formulada:}
-
-\end{enumerate}
+A la fecha de elaboración de este documento, el equipo
+todavía no ha formulado preguntas a otros grupos.
+Este apartado se completará cuando se realice la
+revisión de sus trabajos.
 
 \section{Retroalimentación y ajustes}
 
@@ -247,6 +407,22 @@ Esta sección se completará cuando el docente proporcione
 sus observaciones sobre el diseño de Vecindario. Se
 registrarán las recomendaciones recibidas y los cambios
 realizados por el equipo para mejorar la propuesta.
+
+
+\section{Declaración de uso de inteligencia artificial}
+
+Durante la elaboración de este trabajo se utilizó
+ChatGPT como herramienta de apoyo para organizar
+contenidos, mejorar la redacción, revisar explicaciones
+técnicas y estructurar parte de la documentación.
+
+La herramienta no sustituyó el trabajo del equipo en
+la elaboración del diagrama ni en la toma de decisiones
+sobre la arquitectura. Los integrantes revisaron el
+contenido y son responsables de la información incluida
+en el documento.
+
+
 
 \begin{thebibliography}{9}
 
@@ -258,8 +434,8 @@ Internet Engineering Task Force.
 
 \bibitem{grpc}
 gRPC Authors. (s. f.).
-\textit{gRPC Documentation}.
-\url{https://grpc.io/docs/}
+\textit{Introduction to gRPC}.
+\url{https://grpc.io/docs/what-is-grpc/introduction/}
 
 \bibitem{kafka}
 Apache Software Foundation. (s. f.).
@@ -269,13 +445,19 @@ Apache Software Foundation. (s. f.).
 \bibitem{postgresql}
 PostgreSQL Global Development Group. (s. f.).
 \textit{Write-Ahead Logging (WAL)}.
-\url{https://www.postgresql.org/docs/current/wal-intro.html} 
+\url{https://www.postgresql.org/docs/current/wal-intro.html}
 
 \bibitem{redis}
 Redis Ltd. (s. f.).
-\textit{Redis Documentation: EXPIRE Command}.
+\textit{EXPIRE Command}.
 \url{https://redis.io/docs/latest/commands/expire/}
 
+\bibitem{fcm}
+Google. (s. f.).
+\textit{Send a message using FCM HTTP v1 API}.
+\url{https://firebase.google.com/docs/cloud-messaging/send/v1-api}
+
 \end{thebibliography}
+
 
 \end{document}
