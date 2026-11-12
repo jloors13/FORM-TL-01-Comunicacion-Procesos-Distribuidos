@@ -15,15 +15,16 @@
   \item \textbf{Kafka (A1), unos 10~s.} Desde aquí todo es asíncrono: PUB publica
   \texttt{AvisoPublicado} en Kafka y no espera, así que publicar no se vuelve lento aunque
   el autor tenga 30.000 seguidores.
-  \item \textbf{Muro y gRPC (A2, S3), unos 15~s.} MUR consume el evento y pide a SEG los
-  seguidores por páginas con gRPC, una llamada directa y rápida entre servicios. Con cada
-  lote actualiza los muros, con varios consumidores en paralelo.
+  \item \textbf{Muro, gRPC y lotes (A2, S3), unos 15~s.} El planificador de MUR pide a SEG
+  los seguidores por páginas con gRPC y crea un lote por página en \texttt{muro.lotes}.
+  Los trabajadores de MUR toman esos lotes en paralelo y actualizan los muros.
   \item \textbf{Alertas, R3, unos 10~s.} Las alertas de seguridad van por un tópico propio
-  con consumidores dedicados: llegan en menos de un segundo, mientras que un aviso normal
-  puede tardar hasta cinco.
+  con consumidores dedicados, así que no esperan detrás de los avisos normales. Nuestro
+  objetivo de diseño es menos de un segundo; un aviso normal puede tardar hasta cinco.
   \item \textbf{Notificaciones (A3), unos 5~s.} NOT escucha el mismo evento y notifica a
   los seguidores.
   \item \textbf{Fallo F2, unos 15~s.} Si MUR se cae a mitad de la distribución, no se
-  pierde nada: el evento sigue en Kafka sin confirmar y MUR lo retoma al volver. Como es
-  idempotente, nadie ve el aviso repetido. \emph{Paso la palabra a César.}
+  pierde nada: cada lote se confirma solo cuando termina, así que al volver se reintentan
+  únicamente los lotes pendientes. Como la escritura es idempotente, nadie ve el aviso
+  repetido. \emph{Paso la palabra a César.}
 \end{enumerate}
