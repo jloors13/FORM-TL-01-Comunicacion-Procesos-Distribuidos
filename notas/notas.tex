@@ -7,6 +7,9 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{enumitem}
 \usepackage{hyperref}
+\usepackage{pdflscape}
+\usepackage{longtable}
+\usepackage{array}
 
 \title{FORM-TL-01\\
 Notas de presentación: Vecindario}
@@ -166,6 +169,173 @@ componente utilice el mecanismo más adecuado para su
 función. De esta manera, las operaciones que necesitan
 respuestas inmediatas se mantienen separadas de aquellas
 que pueden procesarse en segundo plano.
+
+
+\section{Tabla de interacciones}
+
+La siguiente tabla resume las comunicaciones representadas
+en el diagrama de Vecindario. Se identifican los servicios
+que participan, la información intercambiada, el mecanismo
+utilizado y la razón por la que se seleccionó cada forma
+de comunicación.
+
+\begin{landscape}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.3}
+
+\begin{longtable}{
+|p{0.7cm}
+|p{2.1cm}
+|p{2.1cm}
+|p{3.5cm}
+|p{1.7cm}
+|p{1.7cm}
+|p{2.8cm}
+|p{5.0cm}|}
+
+\hline
+\textbf{ID} &
+\textbf{Emisor} &
+\textbf{Receptor} &
+\textbf{Mensaje u operación} &
+\textbf{Tipo} &
+\textbf{Sincronía} &
+\textbf{Protocolo / middleware} &
+\textbf{Justificación} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{ID} &
+\textbf{Emisor} &
+\textbf{Receptor} &
+\textbf{Mensaje u operación} &
+\textbf{Tipo} &
+\textbf{Sincronía} &
+\textbf{Protocolo / middleware} &
+\textbf{Justificación} \\
+\hline
+\endhead
+
+S1 & CLI & PUB &
+Crear aviso con texto, categoría, ubicación y tipo. &
+Petición-respuesta & Síncrona &
+REST API / HTTPS sobre TCP &
+El cliente necesita recibir el identificador del aviso y la confirmación de su creación. \\
+\hline
+
+S2 & CLI & Almacenamiento externo &
+Cargar archivo de imagen y recibir su URL o identificador. &
+Petición-respuesta & Síncrona &
+API REST / HTTPS sobre TCP &
+Se necesita obtener la referencia de la imagen antes de vincularla con la publicación. \\
+\hline
+
+S2b & CLI & PUB &
+Registrar el aviso utilizando la URL o identificador de la imagen. &
+Petición-respuesta & Síncrona &
+REST API / HTTPS sobre TCP &
+Permite asociar la imagen previamente almacenada con el aviso correspondiente. \\
+\hline
+
+S3 & MUR & SEG &
+Consultar los seguidores del autor mediante páginas o lotes. &
+RPC & Síncrona &
+gRPC / HTTP/2 &
+MUR necesita obtener los identificadores de los seguidores para distribuir las publicaciones. \\
+\hline
+
+S4 & CLI & MSG, mediante el balanceador &
+Establecer la conexión de mensajería y enviar o recibir mensajes. &
+Sockets & Bidireccional &
+WebSocket seguro (WSS) / TCP &
+Mantiene una conexión persistente para intercambiar mensajes sin iniciar solicitudes nuevas constantemente. \\
+\hline
+
+S5 & CLI & MSG, mediante el balanceador &
+Enviar heartbeat y actualizar el estado de conexión. &
+Sockets & Bidireccional &
+WSS / TCP &
+Permite mantener actualizada la presencia de los usuarios mediante el mismo canal de mensajería. \\
+\hline
+
+S6 & MSG & PostgreSQL &
+Guardar mensaje, conversación, identificador y número de secuencia. &
+Acceso a datos & Síncrona &
+Protocolo PostgreSQL / TCP &
+El mensaje debe quedar almacenado antes de confirmar su recepción para evitar pérdidas. \\
+\hline
+
+S7 & MSG & Redis &
+Actualizar o consultar la presencia de los usuarios mediante TTL. &
+Acceso a datos & Síncrona &
+RESP / TCP &
+Permite consultar rápidamente el estado temporal de conexión y detectar desconexiones mediante expiración. \\
+\hline
+
+S8 & CLI & MOD &
+Enviar denuncia con identificador del aviso, usuario y motivo. &
+Petición-respuesta & Síncrona &
+REST API / HTTPS sobre TCP &
+MOD necesita recibir la denuncia y confirmar su recepción para iniciar la revisión. \\
+\hline
+
+S9 & MOD & PUB &
+Solicitar el ocultamiento de una publicación al alcanzar tres denuncias válidas. &
+RPC & Síncrona &
+gRPC / HTTP/2 &
+PUB debe recibir la solicitud y cambiar el estado del aviso a oculto. \\
+\hline
+
+S10 & CLI & MUR &
+Consultar el muro mediante una solicitud de timeline paginado. &
+Petición-respuesta & Síncrona &
+REST API / HTTPS sobre TCP &
+Permite consultar las publicaciones del usuario, mostrando primero las alertas. \\
+\hline
+
+A1 & PUB & Kafka &
+Publicar el evento AvisoPublicado con los datos del aviso. &
+Mensajería pub/sub & Asíncrona &
+Kafka / TCP &
+PUB puede continuar su operación sin esperar a que todos los consumidores procesen el evento. \\
+\hline
+
+A2 & Kafka & MUR &
+Consumir el evento AvisoPublicado para distribuirlo en los muros. &
+Mensajería pub/sub & Asíncrona &
+Kafka / TCP &
+Permite procesar las publicaciones en segundo plano y distribuirlas por lotes. \\
+\hline
+
+A3 & Kafka & NOT &
+Consumir eventos NuevaPublicación o AlertaSeguridad. &
+Mensajería pub/sub & Asíncrona &
+Kafka / TCP &
+NOT recibe los eventos sin bloquear al servicio que los genera y puede gestionar las notificaciones. \\
+\hline
+
+A4 & PUB $\rightarrow$ Kafka $\rightarrow$ MUR &
+Kafka y MUR &
+Publicar PublicaciónOcultada y consumir el evento para invalidar el aviso en los muros. &
+Mensajería pub/sub & Asíncrona &
+Kafka / TCP &
+Permite comunicar el ocultamiento sin esperar a que todos los muros actualicen su contenido. \\
+\hline
+
+A5 & NOT & CLI &
+Enviar notificación push de nuevo aviso o alerta de seguridad. &
+Mensajería push & Asíncrona &
+Firebase Cloud Messaging (FCM) / HTTPS sobre TCP &
+Permite avisar al usuario sin que tenga que consultar constantemente la plataforma. \\
+\hline
+
+\end{longtable}
+\end{landscape}
+
+\normalsize
+
 
 \section{Requisitos y situaciones de fallo}
 
