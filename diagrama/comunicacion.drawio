@@ -1,9 +1,376 @@
-<mxfile host="app.diagrams.net">
-  <diagram name="Página-1" id="hZZdeweLBjf6YzzFZzKM">
-    <mxGraphModel dx="843" dy="486" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+<mxfile host="Electron">
+  <diagram id="ZhPDw5an-2Poky5z8RtD" name="Página-1">
+    <mxGraphModel dx="2538" dy="1252" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="1654" math="0" shadow="0">
       <root>
         <mxCell id="0" />
-        <mxCell id="1" parent="0" />
+        <mxCell id="1" parent="0" value="Base — frontera, actores, servicios, infraestructura y leyenda (responsable: Jordan Loor)" />
+        <mxCell id="frontera" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#333333;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="1314" width="1770" x="290" y="126" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-44" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" value="" vertex="1">
+          <mxGeometry x="40" y="1462" width="1270" height="172" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=18;fontStyle=1;" value="SISTEMA VECINDARIO" vertex="1">
+          <mxGeometry height="30" width="360" x="304" y="132" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-12" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-4" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.4688;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-16" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-4" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;labelPerimeter=1;" value="Usuario" vertex="1">
+          <mxGeometry height="86" width="46" x="75" y="637" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-8" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;labelPerimeter=1;" value="Negocio Local" vertex="1">
+          <mxGeometry height="86" width="46" x="75" y="427" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-20" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-9" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;exitX=0.0;exitY=0.5;entryX=1.0;entryY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-26" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-9" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;labelPerimeter=1;" value="Moderador" vertex="1">
+          <mxGeometry x="2206" y="242" width="46" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-10" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontFamily=Helvetica;" value="&lt;b&gt;Almacenamiento externo&lt;br&gt;de imágenes&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;servicio externo: guarda el archivo y devuelve URL/ID&lt;/font&gt;" vertex="1">
+          <mxGeometry x="2086" y="104" width="230" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-46" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-16" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;startArrow=classic;startFill=1;startSize=7;exitX=1.0;exitY=0.925;entryX=0.0;entryY=0.3333;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="zv-97ObwJ9qFjEp7vpU8-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-16" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;fontFamily=Helvetica;fontSize=12;verticalAlign=top;spacingTop=24;spacingLeft=10;spacingRight=10;" value="&lt;b&gt;CLI&lt;/b&gt;&lt;br&gt;Cliente móvil/web&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Interfaz usada por usuario, negocio y moderador (App Android / navegador web)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="960" width="220" x="330" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-17" parent="j2sp5MnRYfw1ipF6x_JL-16" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-18" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;fontFamily=Helvetica;fontSize=12;spacingLeft=24;spacingRight=24;" value="&lt;b&gt;PUB&lt;/b&gt;&lt;br&gt;Servicio de publicaciones&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Crea, edita, elimina, consulta y oculta avisos&lt;/font&gt;" vertex="1">
+          <mxGeometry height="160" width="280" x="900" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-19" parent="j2sp5MnRYfw1ipF6x_JL-18" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-20" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;fontFamily=Helvetica;fontSize=12;spacingLeft=20;spacingRight=24;" value="&lt;b&gt;SEG&lt;/b&gt;&lt;br&gt;Servicio de seguidores&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Mantiene relaciones y devuelve listas de seguidores&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="250" x="1760" y="935" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-21" parent="j2sp5MnRYfw1ipF6x_JL-20" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-24" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;fontFamily=Helvetica;fontSize=12;verticalAlign=top;spacingTop=10;spacingLeft=24;spacingRight=24;" value="&lt;b&gt;MSG&lt;/b&gt;&lt;br&gt;Servicio de mensajería directa&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Entrega mensajes en tiempo real y mantiene presencia en línea&lt;/font&gt;" vertex="1">
+          <mxGeometry height="150" width="260" x="1455" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-25" parent="j2sp5MnRYfw1ipF6x_JL-24" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-26" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;fontFamily=Helvetica;fontSize=12;spacingLeft=24;spacingRight=24;" value="&lt;b&gt;MOD&lt;/b&gt;&lt;br&gt;Servicio de moderación&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Recibe denuncias, cuenta denuncias válidas y solicita ocultamiento&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="280" x="900" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-27" parent="j2sp5MnRYfw1ipF6x_JL-26" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-28" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;fontFamily=Helvetica;fontSize=12;spacingLeft=24;spacingRight=24;" value="&lt;b&gt;NOT&lt;/b&gt;&lt;br&gt;Servicio de notificaciones&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Envía avisos de publicaciones y alertas&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="280" x="900" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="j2sp5MnRYfw1ipF6x_JL-29" parent="j2sp5MnRYfw1ipF6x_JL-28" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="330" width="230" x="1470" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-2" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontFamily=Helvetica;" value="&lt;b&gt;PostgreSQL&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Persistencia de mensajes y secuencias&lt;/font&gt;" vertex="1">
+          <mxGeometry height="100" width="200" x="1380" y="1320" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;KAFKA&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;Broker de eventos&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="230" x="1470" y="436" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-4" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Distribución asíncrona de mensajes&lt;br&gt;Eventos durables; reintento de consumidores&lt;/font&gt;" vertex="1">
+          <mxGeometry height="46" width="214" x="1478" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-9" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontFamily=Helvetica;" value="&lt;b&gt;Redis&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Presencia de usuarios (TTL)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="100" width="180" x="1620" y="1320" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=12;" value="&lt;b&gt;Balanceador MSG&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Distribución de conexiones · Varias instancias de mensajería&lt;br&gt;Escalado horizontal · health checks&lt;/font&gt;" vertex="1">
+          <mxGeometry height="84" width="280" x="900" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-13" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-8" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.25;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-16" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-15" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=center;verticalAlign=bottom;fontSize=11;" value="Acceso a la aplicación móvil/web · HTTPS/TCP" vertex="1">
+          <mxGeometry height="34" width="200" x="126" y="638" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-16" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=center;verticalAlign=bottom;fontSize=11;" value="Acceso de negocio / publicar avisos · HTTPS/TCP" vertex="1">
+          <mxGeometry height="34" width="200" x="126" y="428" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-21" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=center;verticalAlign=bottom;fontSize=11;" value="Acceso a consola / revisar denuncias · HTTPS/TCP" vertex="1">
+          <mxGeometry x="2068" y="232" width="132" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-27" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=center;verticalAlign=bottom;fontSize=11;verticalAlign=middle;" value="&lt;b&gt;S4&lt;/b&gt; · Establecer conexión de mensajería ·&lt;br&gt;Enviar/recibir mensaje + ACK (message_id, sequence_no)&lt;br&gt;&lt;b&gt;Sockets WebSocket seguro (WSS) sobre TCP&lt;br&gt;bidireccional/persistente&lt;/b&gt;" vertex="1">
+          <mxGeometry x="560" y="1050" width="330" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-34" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;fontFamily=Helvetica;fontSize=12;spacingLeft=24;spacingRight=24;" value="&lt;b&gt;MUR&lt;/b&gt;&lt;br&gt;Servicio de muro&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Distribuye avisos al timeline de los seguidores&lt;/font&gt;" vertex="1">
+          <mxGeometry height="150" width="280" x="900" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-35" parent="zv-97ObwJ9qFjEp7vpU8-34" style="shape=module;jettyWidth=8;jettyHeight=4;" value="" vertex="1">
+          <mxGeometry height="20" relative="1" width="20" x="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-37" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;" value="Comunicación síncrona: el emisor espera la respuesta" vertex="1">
+          <mxGeometry x="162" y="1506" width="316" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-38" edge="1" parent="1" style="html=1;rounded=0;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;startArrow=classic;startFill=1;startSize=7;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="64" y="1572" as="sourcePoint" />
+            <mxPoint x="150" y="1572" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-42" edge="1" parent="1" style="html=1;rounded=0;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;dashed=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="64" y="1544" as="sourcePoint" />
+            <mxPoint x="150" y="1544" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-43" edge="1" parent="1" style="html=1;rounded=0;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="64" y="1516" as="sourcePoint" />
+            <mxPoint x="150" y="1516" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-45" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;" value="Leyenda" vertex="1">
+          <mxGeometry x="52" y="1466" width="120" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-asincrona" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;" value="Comunicación asíncrona: el emisor continúa sin esperar" vertex="1">
+          <mxGeometry x="162" y="1534" width="316" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-bidireccional" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;" value="Comunicación bidireccional (dos puntas)" vertex="1">
+          <mxGeometry x="162" y="1562" width="316" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-ids" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=top;fontSize=11;" value="S# = interacción síncrona · A# = asíncrona · ↩ = respuesta&lt;br&gt;[R#] / [F#] = requisito o fallo del enunciado que responde la nota" vertex="1">
+          <mxGeometry x="52" y="1590" width="428" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="titulo" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;" value="Diagrama de comunicación entre procesos distribuidos — Escenario 3: Red social «Vecindario»" vertex="1">
+          <mxGeometry height="38" width="1980" x="40" y="24" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitulo" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=14;fontColor=#404040;" value="UTEQ · Ingeniería de Software · Aplicaciones Distribuidas (ISR-701) · Taller FORM-TL-01 / GA-TL-01 · Equipo: Apunte Pazmiño W., Loor Suárez J., Macías Vásquez C. · Periodo 2026–2027" vertex="1">
+          <mxGeometry height="26" width="1980" x="40" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-h-sinc" value="Sincronía (estilo de línea)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="52" y="1488" width="420" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-h-tipo" value="Tipo de comunicación · protocolo y middleware → interacciones" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="492" y="1488" width="560" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-tipos" value="&lt;b&gt;Petición-respuesta&lt;/b&gt; · REST API sobre HTTPS/TCP → S1, S2, S2b, S8, S10&lt;br&gt;&lt;b&gt;RPC&lt;/b&gt; · gRPC sobre HTTP/2 → S3, S9&lt;br&gt;&lt;b&gt;Sockets&lt;/b&gt; · WebSocket seguro (WSS) sobre TCP → S4, S5&lt;br&gt;&lt;b&gt;Mensajería pub/sub&lt;/b&gt; · Kafka sobre TCP → A1, A2, A3, A4&lt;br&gt;&lt;b&gt;Mensajería push&lt;/b&gt; · Firebase Cloud Messaging (FCM) sobre HTTPS/TCP → A5&lt;br&gt;&lt;b&gt;Acceso a datos&lt;/b&gt; · protocolo PostgreSQL/TCP y RESP/TCP (Redis) → S6, S7" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=top;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="492" y="1508" width="560" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-h-elem" value="Elementos" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="1488" width="220" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-e-actor" value="" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="1076" y="1508" width="12" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-e-actor-t" value="Actor externo (fuera de la frontera)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="1508" width="204" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-e-comp" value="" style="shape=module;jettyWidth=6;jettyHeight=3;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1072" y="1536" width="20" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-e-comp-t" value="Proceso o servicio (componente UML)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="1533" width="204" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-e-cyl" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=4;" vertex="1" parent="1">
+          <mxGeometry x="1074" y="1559" width="16" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-e-cyl-t" value="Almacén de datos o servicio externo" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="1558" width="204" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-e-nota" value="" style="shape=note;size=6;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#FFF2CC;strokeColor=#D6B656;" vertex="1" parent="1">
+          <mxGeometry x="1072" y="1586" width="20" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-e-nota-t" value="Nota técnica: requisito o fallo" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="1583" width="204" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-e-front" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#333333;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1071" y="1613" width="22" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="ley-e-front-t" value="Frontera del sistema Vecindario" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="1608" width="204" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ops" value="" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" vertex="1" parent="1">
+          <mxGeometry x="1326" y="1462" width="480" height="172" as="geometry" />
+        </mxCell>
+        <mxCell id="ops-h" value="Operaciones del enunciado → interacciones" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1338" y="1466" width="456" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ops-t" value="&lt;b&gt;(a)&lt;/b&gt; Publicar un aviso con imagen: S1 → S2 → S2b → A1&lt;br&gt;&lt;b&gt;(b)&lt;/b&gt; Distribuir el aviso al muro de los seguidores: A1 → A2 → S3 (por lotes); el seguidor lee su muro con S10; aviso push A3 → A5&lt;br&gt;&lt;b&gt;(c)&lt;/b&gt; Enviar y recibir mensajes directos: S4 → S6 (persistir antes del ACK) → ACK y entrega por S4&lt;br&gt;&lt;b&gt;(d)&lt;/b&gt; Mostrar quién está en línea: S5 → S7 (presencia con TTL)&lt;br&gt;&lt;b&gt;(e)&lt;/b&gt; Denunciar una publicación y ocultarla: S8 → S9 → A4 (invalidar muros)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=top;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1338" y="1492" width="456" height="136" as="geometry" />
+        </mxCell>
+        <mxCell id="sup" value="" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" vertex="1" parent="1">
+          <mxGeometry x="1822" y="1462" width="477" height="172" as="geometry" />
+        </mxCell>
+        <mxCell id="sup-h" value="Por qué distribuido y decisiones del equipo" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1834" y="1466" width="453" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sup-t" value="• 200.000 usuarios y hasta 40.000 conectados (R1); la mensajería exige 99,5 % (R6) y el muro puede degradarse sin afectarla: por eso cada servicio escala y falla por separado.&lt;br&gt;• Kafka, PostgreSQL, Redis, balanceador, REST, gRPC y FCM son decisiones del equipo para cumplir R1–R6; el enunciado no las impone.&lt;br&gt;• Cada servicio guarda sus datos en su propia base; solo se dibujan las bases que intervienen en la comunicación." style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=top;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1834" y="1492" width="453" height="136" as="geometry" />
+        </mxCell>
+        <mxCell id="capa-washington" parent="0" value="Flujo de publicación, muro y notificaciones (responsable: Washington Apunte)" />
+        <mxCell id="t-avisos" parent="capa-washington" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;" value="tópico &lt;b&gt;avisos.publicados&lt;/b&gt;" vertex="1">
+          <mxGeometry height="34" width="200" x="1485" y="538" as="geometry" />
+        </mxCell>
+        <mxCell id="t-alertas" parent="capa-washington" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;fontStyle=0;strokeWidth=2;" value="tópico &lt;b&gt;alertas.seguridad&lt;/b&gt; (prioritario)" vertex="1">
+          <mxGeometry height="34" width="200" x="1485" y="582" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" edge="1" parent="capa-washington" source="j2sp5MnRYfw1ipF6x_JL-16" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;exitX=1.0;exitY=0.2396;entryX=0.0;entryY=0.1875;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-18" value="&lt;b&gt;S1&lt;/b&gt; · Crear aviso: id_usuario, texto, categoría,&lt;br&gt;ubicación y tipo (normal/alerta)&lt;br&gt;&lt;b&gt;REST API · HTTPS/TCP · síncrona&lt;/b&gt;&lt;br&gt;&lt;i&gt;↩ id_aviso + confirmación&lt;/i&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-0.01" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s2" edge="1" parent="capa-washington" source="j2sp5MnRYfw1ipF6x_JL-16" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;exitX=0.2273;exitY=0.0;entryX=0.0;entryY=0.6532;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-10" value="&lt;b&gt;S2&lt;/b&gt; · Cargar imagen (archivo de imagen)&lt;br&gt;&lt;b&gt;API REST externa · HTTPS/TCP · síncrona&lt;/b&gt;&lt;br&gt;&lt;i&gt;↩ Respuesta: URL/ID de imagen&lt;/i&gt;">
+          <mxGeometry relative="1" x="0.5078" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="380" y="185" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s2b" edge="1" parent="capa-washington" source="j2sp5MnRYfw1ipF6x_JL-16" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;exitX=1.0;exitY=0.3438;entryX=0.0;entryY=0.8125;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-18" value="&lt;b&gt;S2b&lt;/b&gt; · Registrar aviso con URL/ID de imagen&lt;br&gt;&lt;b&gt;REST API · HTTPS/TCP · síncrona&lt;/b&gt;&lt;br&gt;&lt;i&gt;↩ PUB vincula la imagen con el aviso&lt;/i&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="4.98" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a1" edge="1" parent="capa-washington" source="j2sp5MnRYfw1ipF6x_JL-18" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;dashed=1;exitX=1.0;exitY=0.2812;entryX=0.0;entryY=0.1364;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="zv-97ObwJ9qFjEp7vpU8-1" value="&lt;b&gt;A1&lt;/b&gt; · Evento AvisoPublicado (id_aviso, autor,&lt;br&gt;tipo, fecha, URL_imagen)&lt;br&gt;&lt;b&gt;Kafka · TCP · asíncrona&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a2" edge="1" parent="capa-washington" source="zv-97ObwJ9qFjEp7vpU8-1" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;dashed=1;exitX=0.2609;exitY=1.0;entryX=1.0;entryY=0.1667;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="zv-97ObwJ9qFjEp7vpU8-34" value="&lt;b&gt;A2&lt;/b&gt; · Consumir AvisoPublicado&lt;br&gt;&lt;b&gt;Kafka · TCP · asíncrona&lt;/b&gt;">
+          <mxGeometry relative="1" x="0.3053" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1530" y="885" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s3" edge="1" parent="capa-washington" source="zv-97ObwJ9qFjEp7vpU8-34" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;exitX=1.0;exitY=0.8;entryX=0.0;entryY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-20" value="&lt;b&gt;S3&lt;/b&gt; · Consultar seguidores del autor por páginas/lotes&lt;br&gt;&lt;b&gt;RPC gRPC · HTTP/2 · síncrona&lt;/b&gt;&lt;br&gt;&lt;i&gt;↩ IDs de seguidores paginados&lt;/i&gt;">
+          <mxGeometry relative="1" x="-0.0276" as="geometry">
+            <mxPoint y="33" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a3" edge="1" parent="capa-washington" source="zv-97ObwJ9qFjEp7vpU8-1" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;dashed=1;exitX=0.0;exitY=0.8333;entryX=1.0;entryY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-28" value="&lt;b&gt;A3&lt;/b&gt; · Evento NuevaPublicación /&lt;br&gt;AlertaSeguridad (id_aviso, autor, tipo)&lt;br&gt;&lt;b&gt;Kafka · TCP · asíncrona&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="0.01" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s10" edge="1" parent="capa-washington" source="j2sp5MnRYfw1ipF6x_JL-16" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;exitX=1.0;exitY=0.7344;entryX=0.0;entryY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="zv-97ObwJ9qFjEp7vpU8-34" value="&lt;b&gt;S10&lt;/b&gt; · Consultar muro (timeline paginado)&lt;br&gt;&lt;b&gt;REST API · HTTPS/TCP · síncrona&lt;/b&gt;&lt;br&gt;&lt;i&gt;↩ avisos del muro (alertas primero)&lt;/i&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-0.01" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a5" edge="1" parent="capa-washington" source="j2sp5MnRYfw1ipF6x_JL-28" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;dashed=1;exitX=0.0;exitY=0.5;entryX=1.0;entryY=0.4948;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-16" value="&lt;b&gt;A5&lt;/b&gt; · Notificación push: nuevo aviso /&lt;br&gt;alerta de seguridad&lt;br&gt;&lt;b&gt;Push FCM · HTTPS/TCP · asíncrona&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n-r3-normal" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R3]&lt;/b&gt; Publicación normal: objetivo ≤5 s; consistencia eventual aceptable." vertex="1">
+          <mxGeometry height="54" width="320" x="565" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="n-r3-alerta" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R3]&lt;/b&gt; Alerta de seguridad: ruta prioritaria; objetivo &amp;lt;1 s. Tópico alertas.seguridad con consumidores dedicados en MUR y NOT." vertex="1">
+          <mxGeometry x="1745" y="572" width="270" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="n-f2" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[F2]&lt;/b&gt; Si MUR cae, el evento no confirmado se reintenta al recuperarse; consumidor idempotente para evitar duplicados." vertex="1">
+          <mxGeometry height="84" width="270" x="1745" y="432" as="geometry" />
+        </mxCell>
+        <mxCell id="n-r4-fanout" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R4]&lt;/b&gt; Fan-out por lotes/páginas; consumidores paralelos; limitar carga por autor." vertex="1">
+          <mxGeometry height="64" width="270" x="1745" y="858" as="geometry" />
+        </mxCell>
+        <mxCell id="n-r4-negocio" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R4]&lt;/b&gt; Negocio con 30.000 seguidores: no bloquear la publicación esperando a los 30.000 destinatarios; distribuir en lotes." vertex="1">
+          <mxGeometry height="78" width="258" x="20" y="546" as="geometry" />
+        </mxCell>
+        <mxCell id="capa-cesar" parent="0" value="Flujo de mensajería, presencia y moderación (responsable: César Macías)" />
+        <mxCell id="t-ocultos" parent="capa-cesar" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;" value="tópico &lt;b&gt;avisos.ocultados&lt;/b&gt;" vertex="1">
+          <mxGeometry height="34" width="200" x="1485" y="626" as="geometry" />
+        </mxCell>
+        <mxCell id="msg-i1" parent="capa-cesar" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=10;fontFamily=Helvetica;" value="instancia 1" vertex="1">
+          <mxGeometry height="26" width="72" x="1469" y="1172" as="geometry" />
+        </mxCell>
+        <mxCell id="msg-i2" parent="capa-cesar" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=10;fontFamily=Helvetica;" value="instancia 2" vertex="1">
+          <mxGeometry height="26" width="72" x="1549" y="1172" as="geometry" />
+        </mxCell>
+        <mxCell id="msg-i3" parent="capa-cesar" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=10;fontFamily=Helvetica;" value="instancia N" vertex="1">
+          <mxGeometry height="26" width="72" x="1629" y="1172" as="geometry" />
+        </mxCell>
+        <mxCell id="s4b" edge="1" parent="capa-cesar" source="zv-97ObwJ9qFjEp7vpU8-11" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;startArrow=classic;startFill=1;startSize=7;exitX=1.0;exitY=0.3333;entryX=0.0;entryY=0.3867;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-24" value="&lt;b&gt;S4&lt;/b&gt; · conexión asignada a una instancia sana&lt;br&gt;&lt;b&gt;WSS/TCP · bidireccional&lt;/b&gt;">
+          <mxGeometry relative="1" x="0.0036" as="geometry">
+            <mxPoint y="-22" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s5" edge="1" parent="capa-cesar" source="j2sp5MnRYfw1ipF6x_JL-16" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;startArrow=classic;startFill=1;startSize=7;exitX=1.0;exitY=0.9604;entryX=0.0;entryY=0.7381;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;" target="zv-97ObwJ9qFjEp7vpU8-11" value="&lt;b&gt;S5&lt;/b&gt; · Heartbeat / actualización de estado en línea&lt;br&gt;&lt;b&gt;WSS/TCP · bidireccional (mismo canal de S4)&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="26.01" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s5b" edge="1" parent="capa-cesar" source="zv-97ObwJ9qFjEp7vpU8-11" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;startArrow=classic;startFill=1;startSize=7;exitX=1.0;exitY=0.7381;entryX=0.0;entryY=0.6133;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;" target="j2sp5MnRYfw1ipF6x_JL-24" value="&lt;b&gt;S5&lt;/b&gt; · heartbeat / presencia&lt;br&gt;&lt;b&gt;WSS/TCP · bidireccional&lt;/b&gt;">
+          <mxGeometry relative="1" x="0.0036" as="geometry">
+            <mxPoint y="22" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s6" edge="1" parent="capa-cesar" source="j2sp5MnRYfw1ipF6x_JL-24" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;exitX=0.1731;exitY=1.0;entryX=0.6;entryY=0.0;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="zv-97ObwJ9qFjEp7vpU8-2" value="&lt;b&gt;S6&lt;/b&gt; · Guardar mensaje (conversation_id, message_id,&lt;br&gt;sequence_no, remitente, destinatario,&lt;br&gt;contenido, timestamp)&lt;br&gt;&lt;b&gt;protocolo PostgreSQL/TCP · síncrona antes del ACK&lt;/b&gt;&lt;br&gt;&lt;i&gt;↩ confirmación de escritura&lt;/i&gt;">
+          <mxGeometry relative="1" x="-0.0544" as="geometry">
+            <mxPoint x="-172" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s7" edge="1" parent="capa-cesar" source="j2sp5MnRYfw1ipF6x_JL-24" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;exitX=0.8654;exitY=1.0;entryX=0.3333;entryY=0.0;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="zv-97ObwJ9qFjEp7vpU8-9" value="&lt;b&gt;S7&lt;/b&gt; · Actualizar/consultar presencia ·&lt;br&gt;clave con TTL&lt;br&gt;&lt;b&gt;RESP/TCP · síncrona breve&lt;/b&gt;&lt;br&gt;&lt;i&gt;↩ estado en línea de los contactos&lt;/i&gt;">
+          <mxGeometry relative="1" x="-0.0003" as="geometry">
+            <mxPoint x="178" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s8" edge="1" parent="capa-cesar" source="j2sp5MnRYfw1ipF6x_JL-16" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;exitX=1.0;exitY=0.0573;entryX=0.0;entryY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-26" value="&lt;b&gt;S8&lt;/b&gt; · Denunciar publicación (id_aviso,&lt;br&gt;id_usuario, motivo)&lt;br&gt;&lt;b&gt;REST API · HTTPS/TCP · síncrona&lt;/b&gt;&lt;br&gt;&lt;i&gt;↩ MOD confirma recepción de la denuncia&lt;/i&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s9" edge="1" parent="capa-cesar" source="j2sp5MnRYfw1ipF6x_JL-26" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-18" value="&lt;b&gt;S9&lt;/b&gt; · Solicitar ocultamiento al alcanzar 3 denuncias&lt;br&gt;válidas de usuarios distintos (envía id_aviso)&lt;br&gt;&lt;b&gt;RPC gRPC · HTTP/2 · síncrona&lt;/b&gt;&lt;br&gt;&lt;i&gt;↩ PUB cambia el estado a oculto&lt;/i&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="163" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a4" edge="1" parent="capa-cesar" source="j2sp5MnRYfw1ipF6x_JL-18" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;dashed=1;exitX=1.0;exitY=0.75;entryX=0.0;entryY=0.3636;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="zv-97ObwJ9qFjEp7vpU8-1" value="&lt;b&gt;A4&lt;/b&gt; · PublicaciónOcultada (id_aviso) /&lt;br&gt;invalidar timeline&lt;br&gt;&lt;b&gt;Kafka/TCP · asíncrona&lt;/b&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="3.01" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a4b" edge="1" parent="capa-cesar" source="zv-97ObwJ9qFjEp7vpU8-1" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;dashed=1;exitX=0.6087;exitY=1.0;entryX=1.0;entryY=0.48;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="zv-97ObwJ9qFjEp7vpU8-34" value="&lt;b&gt;A4&lt;/b&gt; · Consumir PublicaciónOcultada: MUR retira&lt;br&gt;o invalida el aviso en los muros&lt;br&gt;&lt;b&gt;Kafka/TCP · asíncrona&lt;/b&gt;">
+          <mxGeometry relative="1" x="0.2957" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1610" y="932" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n-r1r6" parent="capa-cesar" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R1] [R6]&lt;/b&gt; Varias instancias detrás del balanceador; health checks; objetivo de disponibilidad 99,5 %. Reparten las 40.000 conexiones simultáneas; MSG no depende de MUR, así que si el muro se degrada la mensajería sigue." vertex="1">
+          <mxGeometry x="900" y="1188" width="268" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="n-r2" parent="capa-cesar" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R2]&lt;/b&gt; Entrega &amp;lt;500 ms por el canal WSS ya abierto. message_id único para deduplicación; sequence_no creciente por conversación para conservar orden." vertex="1">
+          <mxGeometry x="565" y="1210" width="320" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="n-f1f3" parent="capa-cesar" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[F1] [F3]&lt;/b&gt; Persistir antes de ACK; mensajes pendientes sobreviven a desconexión/reinicio.&lt;br&gt;&lt;b&gt;F1:&lt;/b&gt; si el destinatario está desconectado, el mensaje queda en PostgreSQL y se entrega al reconectar, desde su último ACK.&lt;br&gt;&lt;b&gt;F3:&lt;/b&gt; si MSG se reinicia, el cliente reconecta por el balanceador a otra instancia y recupera desde su último sequence_no; message_id evita duplicados." vertex="1">
+          <mxGeometry x="905" y="1314" width="460" height="114" as="geometry" />
+        </mxCell>
+        <mxCell id="n-redis" parent="capa-cesar" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="Presencia temporal; heartbeat renueva TTL; expiración detecta desconexión." vertex="1">
+          <mxGeometry height="100" width="205" x="1815" y="1320" as="geometry" />
+        </mxCell>
+        <mxCell id="n-r5" parent="capa-cesar" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R5]&lt;/b&gt; Al llegar a tres denuncias válidas, ocultar en menos de 1 minuto." vertex="1">
+          <mxGeometry height="58" width="328" x="1372" y="348" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
