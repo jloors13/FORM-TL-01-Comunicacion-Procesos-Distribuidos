@@ -10,15 +10,18 @@ Taller académico sobre el modelado de comunicación entre procesos distribuidos
 
 ## Estructura del repositorio
 
-```text
+
 ├── README.md
 ├── diagrama/
 │   ├── comunicacion.drawio
 │   └── comunicacion.pdf
 └── notas/
     ├── notas.tex
-    └── notas.pdf
-```
+    ├── notas.pdf
+    └── secciones/
+        ├── publicacion-muro.tex
+        └── mensajeria-moderacion.tex
+
 
 ## Contenido
 
@@ -27,15 +30,22 @@ Taller académico sobre el modelado de comunicación entre procesos distribuidos
 
 ## Instrucciones de compilación
 
-Para generar el PDF de las notas, se necesita una distribución de LaTeX, como MiKTeX o TeX Live.
 
-Desde la carpeta `notas/`, ejecutar:
+## Instrucciones de compilación
+
+Para generar el PDF de las notas se necesita una distribución de LaTeX, como MiKTeX o TeX Live.
+
+Desde la carpeta `notas/`, ejecutar dos veces:
 
 ```bash
-pdflatex notas.tex
+pdflatex -interaction=nonstopmode -halt-on-error notas.tex
+pdflatex -interaction=nonstopmode -halt-on-error notas.tex
 ```
 
+La segunda compilación permite resolver correctamente las citas bibliográficas.
+
 El archivo generado será `notas.pdf`.
+
 
 ## Herramientas utilizadas
 
