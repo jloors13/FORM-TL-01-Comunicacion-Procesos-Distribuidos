@@ -26,26 +26,6 @@ el aviso al muro de cada seguidor. En paralelo, NOT consume el evento
 seguidores (A5). Cuando un seguidor abre la aplicación, obtiene de MUR su muro ya armado
 (S10).
 
-\begin{center}
-\small
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{|l|l|l|l|l|}
-\hline
-\textbf{ID} & \textbf{Origen $\rightarrow$ destino} & \textbf{Tipo} & \textbf{Sincronía} & \textbf{Protocolo y middleware} \\
-\hline
-S1  & CLI $\rightarrow$ PUB             & Petición-respuesta & Síncrona  & HTTPS/TCP, REST API \\
-S2  & CLI $\rightarrow$ almac. externo  & Petición-respuesta & Síncrona  & HTTPS/TCP, API externa \\
-S2b & CLI $\rightarrow$ PUB             & Petición-respuesta & Síncrona  & HTTPS/TCP, REST API \\
-A1  & PUB $\rightarrow$ Kafka           & Mensajería         & Asíncrona & TCP, Kafka \\
-A2  & Kafka $\rightarrow$ MUR (lotes)     & Mensajería         & Asíncrona & TCP, Kafka \\
-S3  & MUR $\rightarrow$ SEG             & RPC                & Síncrona  & HTTP/2, gRPC \\
-A3  & Kafka $\rightarrow$ NOT           & Mensajería         & Asíncrona & TCP, Kafka \\
-A5  & NOT $\rightarrow$ CLI             & Mensajería push    & Asíncrona & HTTPS/TCP, FCM \\
-S10 & CLI $\rightarrow$ MUR             & Petición-respuesta & Síncrona  & HTTPS/TCP, REST API \\
-\hline
-\end{tabular}
-\end{center}
-
 \paragraph{Mecanismos y justificación.}
 \begin{itemize}[leftmargin=*]
   \item \textbf{REST sobre HTTPS, síncrono (S1, S2, S2b).} Crear el aviso, subir la imagen
