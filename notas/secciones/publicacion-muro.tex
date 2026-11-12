@@ -1,7 +1,8 @@
 % ------------------------------------------------------------------
 % Sección de Washington Apunte Pazmiño
 % Bloque: publicación con imagen, distribución al muro, seguidores
-% y notificaciones (requisitos R3 y R4; situación de fallo F2).
+% y notificaciones (requisitos R3 y R4; situación de fallo F2) y
+% propuesta de prototipo para PE-U1.
 % Integración en notas.tex: \input{secciones/publicacion-muro}
 % ------------------------------------------------------------------
 
@@ -16,11 +17,14 @@ aviso lleva imagen, el cliente la sube directamente al servicio externo de almac
 referencia en PUB (S2b). Así el archivo no pasa por los servicios internos.
 
 Cuando el aviso está completo, PUB publica el evento \texttt{AvisoPublicado} en Kafka (A1)
-y no espera nada más: el usuario ya recibió su confirmación. MUR consume el evento (A2),
-consulta a SEG los seguidores del autor mediante gRPC (S3) y agrega el aviso al muro de
-cada seguidor. En paralelo, NOT consume el evento \texttt{NuevaPublicación} o
-\texttt{AlertaSeguridad} (A3) y envía la notificación push a los seguidores (A5). Cuando un
-seguidor abre la aplicación, obtiene de MUR su muro ya armado (S10).
+y no espera nada más: el usuario ya recibió su confirmación. MUR consume el evento (A2)
+con un \emph{planificador}, que pide a SEG los seguidores del autor por páginas mediante
+gRPC (S3) y publica un lote por página (\texttt{id\_aviso}, número de página) en el tópico
+\texttt{muro.lotes}. Los \emph{trabajadores} de MUR toman esos lotes en paralelo y agregan
+el aviso al muro de cada seguidor. En paralelo, NOT consume el evento
+\texttt{NuevaPublicación} o \texttt{AlertaSeguridad} (A3) y envía la notificación push a los
+seguidores (A5). Cuando un seguidor abre la aplicación, obtiene de MUR su muro ya armado
+(S10).
 
 \begin{center}
 \small
@@ -33,7 +37,7 @@ S1  & CLI $\rightarrow$ PUB             & Petición-respuesta & Síncrona  & HTT
 S2  & CLI $\rightarrow$ almac. externo  & Petición-respuesta & Síncrona  & HTTPS/TCP, API externa \\
 S2b & CLI $\rightarrow$ PUB             & Petición-respuesta & Síncrona  & HTTPS/TCP, REST API \\
 A1  & PUB $\rightarrow$ Kafka           & Mensajería         & Asíncrona & TCP, Kafka \\
-A2  & Kafka $\rightarrow$ MUR           & Mensajería         & Asíncrona & TCP, Kafka \\
+A2  & Kafka $\rightarrow$ MUR (lotes)     & Mensajería         & Asíncrona & TCP, Kafka \\
 S3  & MUR $\rightarrow$ SEG             & RPC                & Síncrona  & HTTP/2, gRPC \\
 A3  & Kafka $\rightarrow$ NOT           & Mensajería         & Asíncrona & TCP, Kafka \\
 A5  & NOT $\rightarrow$ CLI             & Mensajería push    & Asíncrona & HTTPS/TCP, FCM \\
@@ -59,23 +63,39 @@ S10 & CLI $\rightarrow$ MUR             & Petición-respuesta & Síncrona  & HTT
 \end{itemize}
 
 \paragraph{R3: tiempos distintos para avisos normales y alertas.}
-Un aviso normal puede tardar hasta 5~s en aparecer en el muro de los seguidores, así que se
-acepta consistencia eventual. Una alerta de seguridad debe aparecer en menos de 1~s. Para
-que una alerta no quede en cola detrás de los avisos normales, PUB la publica en un tópico
-propio (\texttt{alertas.seguridad}) con consumidores dedicados en MUR y en NOT. La alerta
-tiene prioridad y capacidad de procesamiento separada del resto.
+Tomamos los tiempos de R3 como objetivos de diseño: hasta 5~s para un aviso normal, con
+consistencia eventual aceptable, y menos de 1~s para una alerta de seguridad. Para que una
+alerta no espere detrás de los avisos normales, PUB la publica en un tópico propio
+(\texttt{alertas.seguridad}), que leen grupos de consumidores dedicados en MUR y en NOT.
+Si se acumulan avisos normales en \texttt{avisos.publicados}, esa cola no retrasa a las
+alertas, porque tienen su propio tópico y su propia capacidad de procesamiento.
 
 \paragraph{R4: un negocio con 30.000 seguidores.}
 PUB no espera a que el aviso llegue a los 30.000 seguidores, porque la distribución es
-asíncrona (A1). MUR pide los seguidores a SEG por páginas (S3) y reparte el trabajo en
-lotes entre varios consumidores en paralelo. Además, se limita la carga que puede generar
-un solo autor, para que una publicación masiva no ocupe toda la capacidad y el servicio
-siga respondiendo al resto de usuarios.
+asíncrona (A1). Un evento de Kafka lo procesa un solo consumidor del grupo, así que no se
+reparte solo entre varios. Por eso el planificador de MUR lo divide: pide los seguidores a
+SEG por páginas (S3) y publica un lote por página en \texttt{muro.lotes}. Ese tópico tiene
+varias particiones, y los trabajadores de MUR, que forman un mismo grupo de consumidores,
+se reparten los lotes y los procesan en paralelo. Además, se limita cuántos lotes de un
+mismo autor se procesan a la vez, para que una publicación masiva no ocupe toda la
+capacidad y el servicio siga respondiendo al resto de usuarios.
 
 \paragraph{F2: el servicio de muro se cae mientras un negocio publica.}
-La distribución no se pierde. MUR confirma un evento en Kafka (\emph{commit} del
-\emph{offset}) solo después de procesarlo; si se cae a mitad del trabajo, los eventos no
-confirmados siguen en Kafka y, al recuperarse, MUR los vuelve a leer desde el último punto
-confirmado. Como un evento puede procesarse dos veces, el consumidor es idempotente:
-agregar el mismo aviso al mismo muro no crea un duplicado, por ejemplo gracias a una clave
-única (\texttt{id\_usuario}, \texttt{id\_aviso}).
+La distribución no se pierde, porque la unidad que se confirma y se reintenta es el lote.
+Cada trabajador confirma su lote en Kafka (\emph{commit} del \emph{offset}) solo después
+de escribir el aviso en todos los muros de ese lote, y el planificador confirma el
+\texttt{AvisoPublicado} solo cuando ya publicó todos los lotes. Si MUR se cae a mitad del
+trabajo, al recuperarse se vuelven a leer únicamente los lotes que no se confirmaron. Como
+un lote puede procesarse dos veces, la escritura es idempotente: agregar el mismo aviso al
+mismo muro no crea un duplicado, gracias a la clave única (\texttt{id\_usuario},
+\texttt{id\_aviso}).
+
+\paragraph{Socket TCP para la práctica PE-U1 (propuesta del equipo).}
+WSS funciona sobre TCP, pero añade el protocolo WebSocket encima. Para dejar clara la
+interacción con sockets que pide la guía, el prototipo de PE-U1 implementará la
+mensajería directa (S4) con un socket TCP directo: cada mensaje tendrá un formato fijo
+(\texttt{message\_id}, \texttt{sequence\_no} y contenido) y el servidor responderá con un
+ACK. La consulta de seguidores (S3) se implementará con gRPC. Así se podrán comparar en la
+práctica la latencia y el tamaño de los mensajes de las dos formas. En producción, S4
+seguirá usando WSS, porque el navegador no permite abrir sockets TCP directos y WSS viaja
+cifrado por el mismo puerto que HTTPS.
