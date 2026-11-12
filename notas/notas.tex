@@ -154,13 +154,21 @@ que se necesita procesar cada solicitud.
     que el servicio emisor tenga que esperar a todos los
     consumidores.
 
-    \item \textbf{PostgreSQL:} se propone como sistema de
-    almacenamiento persistente para conservar los mensajes
-    y sus números de secuencia\cite{postgresql}.
+  \item \textbf{PostgreSQL:} se propone como sistema
+de almacenamiento persistente para conservar los mensajes
+y sus números de secuencia. Además, su mecanismo
+Write-Ahead Logging (WAL) permite recuperar cambios
+registrados ante determinados fallos del sistema
+\cite{postgresql}.
 
     \item \textbf{Redis:} se utiliza para mantener información
     temporal sobre la presencia de los usuarios, utilizando
     tiempos de expiración (TTL)\cite{redis}.
+
+    \item \textbf{Firebase Cloud Messaging (FCM):} se propone
+para enviar notificaciones push a los dispositivos de los
+usuarios cuando se generan nuevos avisos o alertas
+\cite{fcm}.
 
 \end{itemize}
 
@@ -418,6 +426,22 @@ sus observaciones sobre el diseño de Vecindario. Se
 registrarán las recomendaciones recibidas y los cambios
 realizados por el equipo para mejorar la propuesta.
 
+
+\section{Declaración de uso de inteligencia artificial}
+
+Durante la elaboración de este trabajo se utilizó
+ChatGPT como herramienta de apoyo para organizar
+contenidos, mejorar la redacción, revisar explicaciones
+técnicas y estructurar parte de la documentación.
+
+La herramienta no sustituyó el trabajo del equipo en
+la elaboración del diagrama ni en la toma de decisiones
+sobre la arquitectura. Los integrantes revisaron el
+contenido y son responsables de la información incluida
+en el documento.
+
+
+
 \begin{thebibliography}{9}
 
 \bibitem{websocket}
@@ -428,8 +452,8 @@ Internet Engineering Task Force.
 
 \bibitem{grpc}
 gRPC Authors. (s. f.).
-\textit{gRPC Documentation}.
-\url{https://grpc.io/docs/}
+\textit{Introduction to gRPC}.
+\url{https://grpc.io/docs/what-is-grpc/introduction/}
 
 \bibitem{kafka}
 Apache Software Foundation. (s. f.).
@@ -439,13 +463,19 @@ Apache Software Foundation. (s. f.).
 \bibitem{postgresql}
 PostgreSQL Global Development Group. (s. f.).
 \textit{Write-Ahead Logging (WAL)}.
-\url{https://www.postgresql.org/docs/current/wal-intro.html} 
+\url{https://www.postgresql.org/docs/current/wal-intro.html}
 
 \bibitem{redis}
 Redis Ltd. (s. f.).
-\textit{Redis Documentation: EXPIRE Command}.
+\textit{EXPIRE Command}.
 \url{https://redis.io/docs/latest/commands/expire/}
 
+\bibitem{fcm}
+Google. (s. f.).
+\textit{Send a message using FCM HTTP v1 API}.
+\url{https://firebase.google.com/docs/cloud-messaging/send/v1-api}
+
 \end{thebibliography}
+
 
 \end{document}
