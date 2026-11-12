@@ -169,7 +169,39 @@ que pueden procesarse en segundo plano.
 
 \section{Requisitos y situaciones de fallo}
 
-% Explicar cómo el diseño responde a R1-R6 y F1-F3.
+El diseño de Vecindario debe responder a las condiciones establecidas para la plataforma, especialmente a la cantidad de usuarios conectados y a la rapidez con la que deben procesarse las publicaciones y los mensajes. También se consideran posibles fallos para evitar que la información se pierda cuando alguno de los servicios deja de funcionar.
+
+\subsection{Cumplimiento de los requisitos}
+
+\begin{itemize}
+
+    \item \textbf{R1. Cantidad de usuarios:} la plataforma debe soportar 200.000 usuarios registrados y hasta 40.000 conectados simultáneamente. Para atender esta demanda se propone utilizar un balanceador de conexiones y varias instancias de los servicios que necesiten distribuir su carga.
+
+    \item \textbf{R2. Mensajería directa:} los mensajes deben llegar en menos de 500 milisegundos cuando el destinatario está conectado y conservar el orden en que fueron enviados. Para ello, MSG utilizará conexiones persistentes mediante WSS, números de secuencia por conversación y almacenamiento de los mensajes antes de confirmar su recepción.
+
+    \item \textbf{R3. Tiempo de distribución:} las publicaciones normales pueden tardar hasta cinco segundos en aparecer en el muro, mientras que las alertas de seguridad deben aparecer en menos de un segundo. Para conseguirlo se propone utilizar Kafka y dar prioridad al procesamiento de las alertas.
+
+    \item \textbf{R4. Negocios con muchos seguidores:} cuando un negocio tiene 30.000 seguidores, su publicación se distribuirá por lotes para evitar que todas las solicitudes se procesen al mismo tiempo. De esta manera se busca reducir la carga sobre el servicio de muro.
+
+    \item \textbf{R5. Moderación de publicaciones:} cuando una publicación recibe tres denuncias, MOD debe gestionar su ocultamiento mediante PUB. El cambio también debe comunicarse al servicio de muro para que deje de mostrar el contenido, procurando cumplir el límite de un minuto.
+
+    \item \textbf{R6. Disponibilidad:} el servicio de mensajería debe alcanzar una disponibilidad del 99,5 %. Para ello se propone utilizar varias instancias de MSG, supervisar su funcionamiento y conservar los mensajes en PostgreSQL. El servicio de muro podrá presentar una degradación sin que esto interrumpa necesariamente la mensajería.
+
+\end{itemize}
+
+\subsection{Respuesta ante situaciones de fallo}
+
+\begin{itemize}
+
+    \item \textbf{F1. Destinatario desconectado:} si el destinatario no está conectado, el mensaje se conserva en PostgreSQL y queda pendiente de entrega. Cuando el usuario vuelve a conectarse, MSG recupera los mensajes que todavía no han sido confirmados y los envía.
+
+    \item \textbf{F2. Caída del servicio de muro:} si MUR deja de funcionar mientras se distribuye una publicación de un negocio con 30.000 seguidores, Kafka conserva los eventos pendientes. Cuando el servicio se recupera, puede continuar con su procesamiento. Además, se deben utilizar mecanismos de idempotencia para evitar que una misma publicación se procese varias veces.
+
+    \item \textbf{F3. Reinicio del servidor de mensajería:} si MSG se reinicia mientras existen conversaciones abiertas, los clientes pueden volver a conectarse. El servicio recupera los mensajes pendientes a partir del último número de secuencia confirmado. Los identificadores únicos permiten reconocer los mensajes que ya fueron procesados y reducir las duplicaciones.
+
+\end{itemize}
+
+Estas medidas buscan que la plataforma pueda continuar funcionando ante interrupciones y que los usuarios no pierdan sus mensajes ni la información de sus publicaciones.
 
 \section{Preguntas críticas recibidas y respuestas}
 
