@@ -31,7 +31,7 @@
         <mxCell id="j2sp5MnRYfw1ipF6x_JL-10" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontFamily=Helvetica;" value="&lt;b&gt;Almacenamiento externo&lt;br&gt;de imágenes&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;servicio externo: guarda el archivo y devuelve URL/ID&lt;/font&gt;" vertex="1">
           <mxGeometry x="2086" y="104" width="230" height="124" as="geometry" />
         </mxCell>
-        <mxCell id="zv-97ObwJ9qFjEp7vpU8-46" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-16" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;startArrow=classic;startFill=1;startSize=7;exitX=1.0;exitY=0.925;entryX=0.0;entryY=0.3333;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="zv-97ObwJ9qFjEp7vpU8-11">
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-46" edge="1" parent="1" source="j2sp5MnRYfw1ipF6x_JL-16" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;startArrow=classic;startFill=1;startSize=7;exitX=1.0;exitY=0.9104;entryX=0.0;entryY=0.1667;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="zv-97ObwJ9qFjEp7vpU8-11">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="j2sp5MnRYfw1ipF6x_JL-16" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;fontFamily=Helvetica;fontSize=12;verticalAlign=top;spacingTop=24;spacingLeft=10;spacingRight=10;" value="&lt;b&gt;CLI&lt;/b&gt;&lt;br&gt;Cliente móvil/web&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Interfaz usada por usuario, negocio y moderador (App Android / navegador web)&lt;/font&gt;" vertex="1">
@@ -112,8 +112,8 @@
         <mxCell id="zv-97ObwJ9qFjEp7vpU8-21" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=center;verticalAlign=bottom;fontSize=11;" value="Acceso a consola / revisar denuncias · HTTPS/TCP" vertex="1">
           <mxGeometry x="2068" y="232" width="132" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="zv-97ObwJ9qFjEp7vpU8-27" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=center;verticalAlign=bottom;fontSize=11;verticalAlign=middle;" value="&lt;b&gt;S4&lt;/b&gt; · Establecer conexión de mensajería ·&lt;br&gt;Enviar/recibir mensaje + ACK (message_id, sequence_no)&lt;br&gt;&lt;b&gt;Sockets WebSocket seguro (WSS) sobre TCP&lt;br&gt;bidireccional/persistente&lt;/b&gt;" vertex="1">
-          <mxGeometry x="560" y="1050" width="330" height="58" as="geometry" />
+        <mxCell id="zv-97ObwJ9qFjEp7vpU8-27" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=center;verticalAlign=bottom;fontSize=11;verticalAlign=middle;" value="&lt;b&gt;S4&lt;/b&gt; · Conexión persistente: enviar mensaje y esperar ACK&lt;br&gt;(message_id, sequence_no); el ACK llega solo después de&lt;br&gt;guardar en PostgreSQL (S6), no al recibir el destinatario&lt;br&gt;&lt;b&gt;Sockets WSS sobre TCP · bidireccional · síncrona (remitente)&lt;/b&gt;" vertex="1">
+          <mxGeometry x="555" y="1030" width="340" height="70" as="geometry" />
         </mxCell>
         <mxCell id="zv-97ObwJ9qFjEp7vpU8-34" parent="1" style="html=1;dropTarget=0;whiteSpace=wrap;fontFamily=Helvetica;fontSize=12;spacingLeft=24;spacingRight=24;" value="&lt;b&gt;MUR&lt;/b&gt;&lt;br&gt;Servicio de muro&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Distribuye avisos al timeline de los seguidores&lt;/font&gt;" vertex="1">
           <mxGeometry height="150" width="280" x="900" y="860" as="geometry" />
@@ -153,7 +153,7 @@
         <mxCell id="ley-bidireccional" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;" value="Comunicación bidireccional (dos puntas)" vertex="1">
           <mxGeometry x="162" y="1562" width="316" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="ley-ids" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=top;fontSize=11;" value="S# = interacción síncrona · A# = asíncrona · ↩ = respuesta&lt;br&gt;[R#] / [F#] = requisito o fallo del enunciado que responde la nota" vertex="1">
+        <mxCell id="ley-ids" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=top;fontSize=11;" value="S# / A# = identificador de la interacción · ↩ = respuesta&lt;br&gt;[R#] / [F#] = requisito o fallo del enunciado que responde la nota" vertex="1">
           <mxGeometry x="52" y="1590" width="428" height="36" as="geometry" />
         </mxCell>
         <mxCell id="titulo" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;" value="Diagrama de comunicación entre procesos distribuidos — Escenario 3: Red social «Vecindario»" vertex="1">
@@ -168,7 +168,7 @@
         <mxCell id="ley-h-tipo" value="Tipo de comunicación · protocolo y middleware → interacciones" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="492" y="1488" width="560" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="ley-tipos" value="&lt;b&gt;Petición-respuesta&lt;/b&gt; · REST API sobre HTTPS/TCP → S1, S2, S2b, S8, S10&lt;br&gt;&lt;b&gt;RPC&lt;/b&gt; · gRPC sobre HTTP/2 → S3, S9&lt;br&gt;&lt;b&gt;Sockets&lt;/b&gt; · WebSocket seguro (WSS) sobre TCP → S4, S5&lt;br&gt;&lt;b&gt;Mensajería pub/sub&lt;/b&gt; · Kafka sobre TCP → A1, A2, A3, A4&lt;br&gt;&lt;b&gt;Mensajería push&lt;/b&gt; · Firebase Cloud Messaging (FCM) sobre HTTPS/TCP → A5&lt;br&gt;&lt;b&gt;Acceso a datos&lt;/b&gt; · protocolo PostgreSQL/TCP y RESP/TCP (Redis) → S6, S7" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=top;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="ley-tipos" value="&lt;b&gt;Petición-respuesta&lt;/b&gt; · REST API sobre HTTPS/TCP → S1, S2, S2b, S8, S10&lt;br&gt;&lt;b&gt;RPC&lt;/b&gt; · gRPC sobre HTTP/2 → S3, S9&lt;br&gt;&lt;b&gt;Sockets&lt;/b&gt; · WebSocket seguro (WSS) sobre TCP → S4, S4b, S5&lt;br&gt;&lt;b&gt;Mensajería pub/sub&lt;/b&gt; · Kafka sobre TCP → A1, A2, A3, A4&lt;br&gt;&lt;b&gt;Mensajería push&lt;/b&gt; · Firebase Cloud Messaging (FCM) sobre HTTPS/TCP → A5&lt;br&gt;&lt;b&gt;Acceso a datos&lt;/b&gt; · protocolo PostgreSQL/TCP y RESP/TCP (Redis) → S6, S7" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=top;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="492" y="1508" width="560" height="100" as="geometry" />
         </mxCell>
         <mxCell id="ley-h-elem" value="Elementos" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;" vertex="1" parent="1">
@@ -210,7 +210,7 @@
         <mxCell id="ops-h" value="Operaciones del enunciado → interacciones" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="1338" y="1466" width="456" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="ops-t" value="&lt;b&gt;(a)&lt;/b&gt; Publicar un aviso con imagen: S1 → S2 → S2b → A1&lt;br&gt;&lt;b&gt;(b)&lt;/b&gt; Distribuir el aviso al muro de los seguidores: A1 → A2 → S3 (por lotes); el seguidor lee su muro con S10; aviso push A3 → A5&lt;br&gt;&lt;b&gt;(c)&lt;/b&gt; Enviar y recibir mensajes directos: S4 → S6 (persistir antes del ACK) → ACK y entrega por S4&lt;br&gt;&lt;b&gt;(d)&lt;/b&gt; Mostrar quién está en línea: S5 → S7 (presencia con TTL)&lt;br&gt;&lt;b&gt;(e)&lt;/b&gt; Denunciar una publicación y ocultarla: S8 → S9 → A4 (invalidar muros)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=top;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="ops-t" value="&lt;b&gt;(a)&lt;/b&gt; Publicar un aviso con imagen: S1 → S2 → S2b → A1&lt;br&gt;&lt;b&gt;(b)&lt;/b&gt; Distribuir el aviso al muro de los seguidores: A1 → A2 → S3 → lotes en muro.lotes (trabajadores en paralelo); el seguidor lee su muro con S10; aviso push A3 → A5&lt;br&gt;&lt;b&gt;(c)&lt;/b&gt; Enviar y recibir mensajes directos: S4 → S6 (persistir antes del ACK) → ACK al remitente (S4) y entrega al destinatario (S4b)&lt;br&gt;&lt;b&gt;(d)&lt;/b&gt; Mostrar quién está en línea: S5 → S7 (presencia con TTL)&lt;br&gt;&lt;b&gt;(e)&lt;/b&gt; Denunciar una publicación y ocultarla: S8 → S9 → A4 (invalidar muros)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;rounded=0;fontFamily=Helvetica;align=left;verticalAlign=top;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="1338" y="1492" width="456" height="136" as="geometry" />
         </mxCell>
         <mxCell id="sup" value="" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" vertex="1" parent="1">
@@ -252,7 +252,7 @@
             <mxPoint y="-6" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="a2" edge="1" parent="capa-washington" source="zv-97ObwJ9qFjEp7vpU8-1" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;dashed=1;exitX=0.2609;exitY=1.0;entryX=1.0;entryY=0.1667;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="zv-97ObwJ9qFjEp7vpU8-34" value="&lt;b&gt;A2&lt;/b&gt; · Consumir AvisoPublicado&lt;br&gt;&lt;b&gt;Kafka · TCP · asíncrona&lt;/b&gt;">
+        <mxCell id="a2" edge="1" parent="capa-washington" source="zv-97ObwJ9qFjEp7vpU8-1" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;dashed=1;exitX=0.2609;exitY=1.0;entryX=1.0;entryY=0.1667;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="zv-97ObwJ9qFjEp7vpU8-34" value="&lt;b&gt;A2&lt;/b&gt; · Consumir AvisoPublicado; el planificador de MUR crea&lt;br&gt;un lote por página de seguidores (id_aviso, página)&lt;br&gt;&lt;b&gt;Kafka · TCP · asíncrona&lt;/b&gt;">
           <mxGeometry relative="1" x="0.3053" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
@@ -280,20 +280,37 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="n-r3-normal" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R3]&lt;/b&gt; Publicación normal: objetivo ≤5 s; consistencia eventual aceptable." vertex="1">
+        <mxCell id="n-r3-normal" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R3]&lt;/b&gt; Publicación normal: objetivo de diseño ≤5 s; consistencia eventual aceptable." vertex="1">
           <mxGeometry height="54" width="320" x="565" y="980" as="geometry" />
         </mxCell>
-        <mxCell id="n-r3-alerta" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R3]&lt;/b&gt; Alerta de seguridad: ruta prioritaria; objetivo &amp;lt;1 s. Tópico alertas.seguridad con consumidores dedicados en MUR y NOT." vertex="1">
-          <mxGeometry x="1745" y="572" width="270" height="74" as="geometry" />
+        <mxCell id="n-r3-alerta" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R3]&lt;/b&gt; Alerta de seguridad: objetivo de diseño &amp;lt;1 s. Va por su propio tópico (alertas.seguridad) y su propio grupo de consumidores en MUR y NOT, así que no espera detrás de los avisos normales." vertex="1">
+          <mxGeometry x="1745" y="530" width="290" height="108" as="geometry" />
         </mxCell>
-        <mxCell id="n-f2" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[F2]&lt;/b&gt; Si MUR cae, el evento no confirmado se reintenta al recuperarse; consumidor idempotente para evitar duplicados." vertex="1">
+        <mxCell id="n-f2" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[F2]&lt;/b&gt; Si MUR cae, se reintentan solo los lotes y eventos no confirmados al recuperarse; la escritura al muro es idempotente para evitar duplicados." vertex="1">
           <mxGeometry height="84" width="270" x="1745" y="432" as="geometry" />
         </mxCell>
-        <mxCell id="n-r4-fanout" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R4]&lt;/b&gt; Fan-out por lotes/páginas; consumidores paralelos; limitar carga por autor." vertex="1">
-          <mxGeometry height="64" width="270" x="1745" y="858" as="geometry" />
+        <mxCell id="n-r4-fanout" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R4]&lt;/b&gt; Negocio con 30.000 seguidores: el planificador de MUR pide los seguidores a SEG por páginas (S3) y publica un lote (id_aviso, página) en muro.lotes. Los trabajadores de MUR, en paralelo, procesan cada lote y lo confirman al terminar. Si MUR cae, solo se reintentan los lotes sin confirmar; la escritura al muro es idempotente (id_usuario, id_aviso). Se limita la carga por autor." vertex="1">
+          <mxGeometry height="160" width="290" x="1745" y="650" as="geometry" />
         </mxCell>
         <mxCell id="n-r4-negocio" parent="capa-washington" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R4]&lt;/b&gt; Negocio con 30.000 seguidores: no bloquear la publicación esperando a los 30.000 destinatarios; distribuir en lotes." vertex="1">
           <mxGeometry height="78" width="258" x="20" y="546" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-entrega" edge="1" parent="capa-washington" source="zv-97ObwJ9qFjEp7vpU8-11" target="j2sp5MnRYfw1ipF6x_JL-16" value="&lt;b&gt;S4b&lt;/b&gt; · Entrega al destinatario (push) · &lt;b&gt;WSS/TCP · asíncrona&lt;/b&gt;" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;dashed=1;exitX=0.0;exitY=0.5;entryX=1.0;entryY=0.9396;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t-lotes" value="tópico &lt;b&gt;muro.lotes&lt;/b&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;" vertex="1" parent="capa-washington">
+          <mxGeometry x="1485" y="670" width="200" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="mur-planif" value="planificador&lt;br&gt;(crea lotes)" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=10;fontFamily=Helvetica;" vertex="1" parent="capa-washington">
+          <mxGeometry x="908" y="962" width="120" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="mur-trab" value="trabajadores 1…N&lt;br&gt;(lotes en paralelo)" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=10;fontFamily=Helvetica;" vertex="1" parent="capa-washington">
+          <mxGeometry x="1038" y="962" width="134" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="n-pe-u1" value="&lt;b&gt;[PE-U1]&lt;/b&gt; Prototipo de la práctica siguiente (propuesta del equipo): S4 con un socket TCP directo (mensaje de formato fijo: message_id, sequence_no, contenido + ACK) y S3 con gRPC, para comparar latencia y tamaño de mensaje. En producción S4 usa WSS por el navegador y HTTPS." style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" vertex="1" parent="capa-washington">
+          <mxGeometry x="1745" y="1046" width="290" height="122" as="geometry" />
         </mxCell>
         <mxCell id="capa-cesar" parent="0" value="Flujo de mensajería, presencia y moderación (responsable: César Macías)" />
         <mxCell id="t-ocultos" parent="capa-cesar" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=11;fontFamily=Helvetica;" value="tópico &lt;b&gt;avisos.ocultados&lt;/b&gt;" vertex="1">
@@ -308,17 +325,17 @@
         <mxCell id="msg-i3" parent="capa-cesar" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=10;fontFamily=Helvetica;" value="instancia N" vertex="1">
           <mxGeometry height="26" width="72" x="1629" y="1172" as="geometry" />
         </mxCell>
-        <mxCell id="s4b" edge="1" parent="capa-cesar" source="zv-97ObwJ9qFjEp7vpU8-11" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;startArrow=classic;startFill=1;startSize=7;exitX=1.0;exitY=0.3333;entryX=0.0;entryY=0.3867;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-24" value="&lt;b&gt;S4&lt;/b&gt; · conexión asignada a una instancia sana&lt;br&gt;&lt;b&gt;WSS/TCP · bidireccional&lt;/b&gt;">
+        <mxCell id="s4b" edge="1" parent="capa-cesar" source="zv-97ObwJ9qFjEp7vpU8-11" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;startArrow=classic;startFill=1;startSize=7;exitX=1.0;exitY=0.3333;entryX=0.0;entryY=0.3867;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="j2sp5MnRYfw1ipF6x_JL-24" value="&lt;b&gt;S4&lt;/b&gt; · conexión asignada a una instancia sana&lt;br&gt;(lleva el envío con ACK y la entrega S4b)&lt;br&gt;&lt;b&gt;WSS/TCP · bidireccional&lt;/b&gt;">
           <mxGeometry relative="1" x="0.0036" as="geometry">
-            <mxPoint y="-22" as="offset" />
+            <mxPoint y="-28" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="s5" edge="1" parent="capa-cesar" source="j2sp5MnRYfw1ipF6x_JL-16" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;startArrow=classic;startFill=1;startSize=7;exitX=1.0;exitY=0.9604;entryX=0.0;entryY=0.7381;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;" target="zv-97ObwJ9qFjEp7vpU8-11" value="&lt;b&gt;S5&lt;/b&gt; · Heartbeat / actualización de estado en línea&lt;br&gt;&lt;b&gt;WSS/TCP · bidireccional (mismo canal de S4)&lt;/b&gt;">
+        <mxCell id="s5" edge="1" parent="capa-cesar" source="j2sp5MnRYfw1ipF6x_JL-16" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;startArrow=classic;startFill=1;startSize=7;exitX=1.0;exitY=0.9688;entryX=0.0;entryY=0.8333;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;" target="zv-97ObwJ9qFjEp7vpU8-11" value="&lt;b&gt;S5&lt;/b&gt; · Heartbeat / estado en línea (no espera respuesta)&lt;br&gt;&lt;b&gt;WSS/TCP · bidireccional · asíncrona (mismo canal de S4)&lt;/b&gt;">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint y="26.01" as="offset" />
+            <mxPoint y="26" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="s5b" edge="1" parent="capa-cesar" source="zv-97ObwJ9qFjEp7vpU8-11" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;startArrow=classic;startFill=1;startSize=7;exitX=1.0;exitY=0.7381;entryX=0.0;entryY=0.6133;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;" target="j2sp5MnRYfw1ipF6x_JL-24" value="&lt;b&gt;S5&lt;/b&gt; · heartbeat / presencia&lt;br&gt;&lt;b&gt;WSS/TCP · bidireccional&lt;/b&gt;">
+        <mxCell id="s5b" edge="1" parent="capa-cesar" source="zv-97ObwJ9qFjEp7vpU8-11" style="edgeStyle=none;rounded=0;html=1;endArrow=classic;endFill=1;endSize=7;strokeWidth=1.5;strokeColor=#000000;fontSize=11;fontColor=#000000;labelBackgroundColor=#FFFFFF;fontFamily=Helvetica;startArrow=classic;startFill=1;startSize=7;exitX=1.0;exitY=0.7381;entryX=0.0;entryY=0.6133;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;" target="j2sp5MnRYfw1ipF6x_JL-24" value="&lt;b&gt;S5&lt;/b&gt; · heartbeat / presencia (sin respuesta)&lt;br&gt;&lt;b&gt;WSS/TCP · bidireccional · asíncrona&lt;/b&gt;">
           <mxGeometry relative="1" x="0.0036" as="geometry">
             <mxPoint y="22" as="offset" />
           </mxGeometry>
@@ -359,8 +376,8 @@
         <mxCell id="n-r1r6" parent="capa-cesar" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R1] [R6]&lt;/b&gt; Varias instancias detrás del balanceador; health checks; objetivo de disponibilidad 99,5 %. Reparten las 40.000 conexiones simultáneas; MSG no depende de MUR, así que si el muro se degrada la mensajería sigue." vertex="1">
           <mxGeometry x="900" y="1188" width="268" height="112" as="geometry" />
         </mxCell>
-        <mxCell id="n-r2" parent="capa-cesar" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R2]&lt;/b&gt; Entrega &amp;lt;500 ms por el canal WSS ya abierto. message_id único para deduplicación; sequence_no creciente por conversación para conservar orden." vertex="1">
-          <mxGeometry x="565" y="1210" width="320" height="72" as="geometry" />
+        <mxCell id="n-r2" parent="capa-cesar" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R2]&lt;/b&gt; Objetivo de diseño: entrega &amp;lt;500 ms por el canal WSS ya abierto. message_id único para deduplicar. El sequence_no lo asigna PostgreSQL al guardar (contador por conversación bloqueado por fila y UNIQUE (conversation_id, sequence_no)); así las instancias de MSG no compiten y el orden es único y creciente." vertex="1">
+          <mxGeometry x="565" y="1222" width="330" height="132" as="geometry" />
         </mxCell>
         <mxCell id="n-f1f3" parent="capa-cesar" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[F1] [F3]&lt;/b&gt; Persistir antes de ACK; mensajes pendientes sobreviven a desconexión/reinicio.&lt;br&gt;&lt;b&gt;F1:&lt;/b&gt; si el destinatario está desconectado, el mensaje queda en PostgreSQL y se entrega al reconectar, desde su último ACK.&lt;br&gt;&lt;b&gt;F3:&lt;/b&gt; si MSG se reinicia, el cliente reconecta por el balanceador a otra instancia y recupera desde su último sequence_no; message_id evita duplicados." vertex="1">
           <mxGeometry x="905" y="1314" width="460" height="114" as="geometry" />
@@ -368,8 +385,8 @@
         <mxCell id="n-redis" parent="capa-cesar" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="Presencia temporal; heartbeat renueva TTL; expiración detecta desconexión." vertex="1">
           <mxGeometry height="100" width="205" x="1815" y="1320" as="geometry" />
         </mxCell>
-        <mxCell id="n-r5" parent="capa-cesar" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R5]&lt;/b&gt; Al llegar a tres denuncias válidas, ocultar en menos de 1 minuto." vertex="1">
-          <mxGeometry height="58" width="328" x="1372" y="348" as="geometry" />
+        <mxCell id="n-r5" parent="capa-cesar" style="shape=note;size=14;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;fontFamily=Helvetica;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=16;" value="&lt;b&gt;[R5]&lt;/b&gt; Objetivo de diseño: aviso oculto en &amp;lt;1 min tras la 3.ª denuncia válida. PUB lo oculta al instante (S9); MUR retira las copias al consumir A4. Se vigila el retraso de ese consumidor." vertex="1">
+          <mxGeometry height="82" width="328" x="1372" y="326" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
