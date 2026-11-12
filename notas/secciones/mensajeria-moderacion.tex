@@ -1,1 +1,103 @@
+Las cifras de esta sección (500~ms, 1~min, 99,5\,\%) son \emph{objetivos de diseño}; se
+comprobarán con pruebas en PE-U1.
 
+\paragraph{Recorrido de un mensaje directo.}
+Al abrir la aplicación, el cliente (CLI) establece un canal WebSocket seguro (WSS sobre TCP)
+con el balanceador, que lo asigna a una de las instancias de MSG (S4). El canal queda
+abierto en ambos sentidos. Un mensaje pasa por tres tramos con sincronía distinta:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Envío y ACK de guardado (síncrono para el remitente).} El cliente genera un
+  \texttt{message\_id} único y envía el mensaje; MSG lo guarda en PostgreSQL (S6) y solo
+  entonces responde al remitente con el \textbf{ACK de guardado}. El remitente espera ese
+  ACK y, si no llega, reenvía con el mismo \texttt{message\_id}.
+  \item \textbf{Entrega al destinatario (asíncrona).} Después de guardar, MSG empuja el
+  mensaje por el canal WSS del destinatario si está conectado. El ACK al remitente no
+  espera a esta entrega.
+  \item \textbf{ACK de entrega (asíncrono).} El cliente del destinatario confirma la
+  recepción con el \texttt{sequence\_no} recibido; MSG registra ese valor como el último
+  confirmado para ese destinatario en esa conversación.
+\end{enumerate}
+Por tanto, el \textbf{ACK al remitente significa ``guardado en PostgreSQL'', no ``entregado''}.
+La entrega se confirma aparte con el ACK de entrega del destinatario.
+
+\paragraph{Presencia en línea.}
+Mientras el canal está abierto, el cliente envía periódicamente un \emph{heartbeat} por el
+mismo canal WSS (S5); no es una petición que bloquee al cliente, por lo que se trata como
+asíncrono y periódico. Con cada uno, MSG renueva en Redis la clave de presencia del usuario,
+que tiene un tiempo de expiración (TTL) (S7). Si los \emph{heartbeats} dejan de llegar, la
+clave expira y el usuario se muestra como desconectado, sin necesidad de un aviso explícito.
+
+\paragraph{Orden: asignación de \texttt{sequence\_no} entre varias instancias de MSG.}
+Como hay varias instancias, el número de secuencia no puede asignarse en memoria. Se asigna
+en PostgreSQL, que es el punto común: cada conversación tiene un contador y, dentro de una
+misma transacción, MSG incrementa ese contador y guarda el mensaje con el valor obtenido. El
+bloqueo de la fila del contador hace que dos instancias que reciben mensajes de la misma
+conversación al mismo tiempo se ordenen una detrás de otra y no puedan obtener el mismo
+número. La tabla de mensajes impone que el par (\texttt{conversation\_id},
+\texttt{sequence\_no}) y el \texttt{message\_id} sean únicos.
+
+\paragraph{Deduplicación y cursor de recuperación.}
+Antes de asignar un número, MSG busca el \texttt{message\_id}: si ya existe (por ejemplo, un
+reintento tras perder el ACK), devuelve el \texttt{sequence\_no} ya asignado y no crea otro
+mensaje ni avanza el contador. Para recuperarse, el cliente conserva por conversación el
+último \texttt{sequence\_no} confirmado y, al reconectarse (F1 o F3), lo envía como cursor;
+MSG responde con los mensajes de esa conversación cuyo \texttt{sequence\_no} es mayor,
+en orden. Si el cliente detecta un salto en la numeración, pide el rango que falta.
+
+\paragraph{Denuncia y ocultamiento.}
+Cuando un usuario denuncia un aviso, el cliente envía a MOD el \texttt{id\_aviso}, el
+\texttt{id\_usuario} y el motivo (S8), y MOD confirma la recepción. MOD cuenta únicamente las
+denuncias válidas de usuarios distintos. Al llegar a tres, solicita a PUB ocultar el aviso
+(S9); PUB cambia su estado a oculto, que es la fuente de verdad, y publica en Kafka el evento
+\texttt{PublicaciónOcultada} (A4), que MUR consume para retirar o invalidar el aviso en los
+muros.
+
+\paragraph{Mecanismos y justificación.}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{WSS sobre TCP, bidireccional y persistente (S4, S5).} Un canal abierto
+  permite empujar el mensaje al destinatario apenas se guarda, sin abrir una conexión por
+  cada envío, y sirve también para el \emph{heartbeat}. TCP garantiza entrega ordenada y
+  confiable; WSS cifra el tráfico.
+  \item \textbf{PostgreSQL síncrono antes del ACK (S6).} Un mensaje no se confirma al
+  remitente hasta estar guardado, para no confirmar algo que luego pueda perderse.
+  \item \textbf{Redis con TTL (S7).} La presencia es un dato temporal que cambia
+  constantemente y no necesita sobrevivir a un reinicio, por lo que se guarda en memoria con
+  expiración.
+  \item \textbf{REST y gRPC en la moderación (S8, S9) y Kafka en la invalidación (A4).} La
+  denuncia necesita confirmación inmediata; la orden de ocultar es una llamada directa entre
+  servicios internos; y el retiro del aviso en los muros puede completarse de forma
+  asíncrona.
+\end{itemize}
+
+\paragraph{R2: objetivo de 500~ms y orden.}
+El canal WSS ya está abierto, por lo que la entrega a un destinatario conectado no depende
+de establecer conexiones nuevas y la tarea más costosa de la ruta es una escritura en
+PostgreSQL. El \texttt{sequence\_no} asignado en PostgreSQL mantiene el orden por
+conversación aunque haya varias instancias, y el \texttt{message\_id} único evita duplicados.
+Se plantea como objetivo y se medirá en PE-U1.
+
+\paragraph{R5: objetivo de ocultar en menos de un minuto.}
+La solicitud a PUB (S9) es síncrona y cambia el estado de inmediato. El evento A4 es
+asíncrono, así que por sí solo no garantiza el límite: si el evento aún no se consumió, MUR
+podría seguir mostrando su copia del aviso. Para cerrar ese hueco, MUR no se fía solo del
+evento: al armar el muro para un usuario, consulta a PUB en lote el estado de los avisos que
+va a mostrar, con una caché de pocos segundos, y descarta los ocultos. Así, tras el cambio de
+estado en PUB, el aviso deja de verse en cuanto expira esa caché, y el evento A4 se encarga
+después de limpiar los muros ya armados. Se plantea como objetivo y se medirá en PE-U1.
+
+\paragraph{R6: objetivo de disponibilidad de 99,5\,\% en la mensajería.}
+Se aspira a esa meta con varias instancias de MSG detrás del balanceador, \emph{health
+checks} que retiran las instancias que no responden y persistencia de los mensajes en
+PostgreSQL. El muro está desacoplado mediante Kafka, de modo que su degradación no bloquea
+la mensajería.
+
+\paragraph{F1: el destinatario está desconectado.}
+El mensaje ya se guardó en PostgreSQL antes del ACK de guardado, por lo que queda pendiente
+aunque el destinatario no esté en línea. Al reconectarse, el cliente envía su cursor (último
+\texttt{sequence\_no} confirmado por conversación) y MSG le entrega los mensajes posteriores.
+
+\paragraph{F3: MSG se reinicia con conversaciones abiertas.}
+Los clientes se reconectan al balanceador, que los asigna a una instancia disponible, y
+recuperan desde su cursor, sin depender de memoria volátil. Los mensajes que el remitente no
+vio confirmados se reenvían con el mismo \texttt{message\_id}, y la deduplicación evita que
+se guarden dos veces.
