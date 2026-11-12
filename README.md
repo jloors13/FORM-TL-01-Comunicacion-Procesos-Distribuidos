@@ -30,9 +30,6 @@ Taller académico sobre el modelado de comunicación entre procesos distribuidos
 
 ## Instrucciones de compilación
 
-
-## Instrucciones de compilación
-
 Para generar el PDF de las notas se necesita una distribución de LaTeX, como MiKTeX o TeX Live.
 
 Desde la carpeta `notas/`, ejecutar dos veces:
