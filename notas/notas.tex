@@ -256,16 +256,16 @@ MUR necesita obtener los identificadores de los seguidores para distribuir las p
 
 S4 & CLI & MSG, mediante el balanceador &
 Establecer la conexión de mensajería y enviar o recibir mensajes. &
-Sockets & Bidireccional &
+Sockets & Síncrona &
 WebSocket seguro (WSS) / TCP &
-Mantiene una conexión persistente para intercambiar mensajes sin iniciar solicitudes nuevas constantemente. \\
+Permite establecer una conexión persistente y bidireccional para intercambiar mensajes entre el cliente y el servicio de mensajería. \\
 \hline
 
 S5 & CLI & MSG, mediante el balanceador &
 Enviar heartbeat y actualizar el estado de conexión. &
-Sockets & Bidireccional &
+Sockets & Asíncrona &
 WSS / TCP &
-Permite mantener actualizada la presencia de los usuarios mediante el mismo canal de mensajería. \\
+Permite mantener actualizada la presencia de los usuarios mediante mensajes periódicos sin bloquear el intercambio de mensajes. \\
 \hline
 
 S6 & MSG & PostgreSQL &
